@@ -7,6 +7,7 @@ import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
+import Underline from "@tiptap/extension-underline";
 import WikiEditorMenu from "./WikiEditorMenu";
 
 type WikiEditorProps = {
@@ -37,6 +38,7 @@ export default function WikiEditor({ initialData, title, handleChangeContent }: 
         inline: true,
       }),
       Link,
+      Underline,
     ],
     editorProps: {
       attributes: {
@@ -54,7 +56,7 @@ export default function WikiEditor({ initialData, title, handleChangeContent }: 
       {editor && <WikiEditorMenu editor={editor} title={title} />}
       {/* note prettier 설정에서 강제 정렬 수정으로 오류 발생해서 해당 부분 제외 했습니다 */}
       {/* eslint-disable-next-line */}
-      <div className="prose prose-sm md:prose-base min-h-[600px] max-w-none overflow-auto rounded-[10px] px-5 py-10 shadow-lg shadow-gray-200">
+      <div className="prose prose-sm min-h-[600px] max-w-none overflow-auto rounded-[10px] px-5 py-10 shadow-lg shadow-gray-200 md:prose-base">
         <EditorContent
           editor={editor}
           style={{

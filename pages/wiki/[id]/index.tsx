@@ -79,6 +79,8 @@ export default function Wiki() {
   // note 수정모드 여부 확인 state
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
+  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
+
   // note api 호출, url 설정 effect
   useEffect(() => {
     const getWikiDataByCode = async () => {
@@ -121,6 +123,22 @@ export default function Wiki() {
     };
     getWikiDataByCode();
   }, [id, isEditing]);
+
+  useEffect(() => {
+    if (isEditing) {
+      const editTimer = setTimeout(() => {
+        setIsEditing(false);
+        closeAuthModal();
+      }, 300000); // 5분 = 300000ms
+      setTimerId(editTimer);
+    }
+
+    return () => {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
+  }, [isEditing]);
 
   const handleClickEdit = async () => {
     if (typeof id === "string") {

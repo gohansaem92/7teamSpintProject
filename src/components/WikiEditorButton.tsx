@@ -7,6 +7,10 @@ import ic_picture from "@/public/icons/ic_picture.svg";
 import ic_underline from "@/public/icons/ic_underline.svg";
 import ic_video from "@/public/icons/ic_video.svg";
 import ic_link from "@/public/icons/ic_link.svg";
+import ic_align_center from "@/public/assets/ic_Alignment_center.svg";
+import ic_align_left from "@/public/assets/ic_Alignment_left.svg";
+import ic_align_right from "@/public/assets/ic_Alignment_right.svg";
+import ic_align_justify from "@/public/assets/ic_burger.svg";
 
 type ButtonProps = {
   onClick: () => void;
@@ -24,6 +28,10 @@ const icons = {
   underline: ic_underline,
   video: ic_video,
   link: ic_link,
+  center: ic_align_center,
+  left: ic_align_left,
+  right: ic_align_right,
+  justify: ic_align_justify,
 };
 
 export default function Button({ onClick, active, iconName, alt }: ButtonProps) {
