@@ -1,7 +1,7 @@
 import Header from "@/src/components/Header";
 import "@mantine/core/styles.css";
 import "@/src/styles/globals.css";
-import theme from "@/src/styles/theme";
+import theme from "@/src/styles/mantineTheme";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
