@@ -1,5 +1,6 @@
 import Header from "@/src/components/Header";
 import "@mantine/core/styles.css";
+import "../styles/preflight.css";
 import "@/src/styles/globals.css";
 import theme from "@/src/styles/mantineTheme";
 import { MantineProvider } from "@mantine/core";

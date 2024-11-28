@@ -2,7 +2,10 @@ import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
 const config: Config = {
-  content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  corePlugins: {
+    preflight: false, // Preflight 비활성화
+  },
+  content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/**/*.{js,ts,jsx,tsx,mdx}", "./src/styles/preflight.css",],
   theme: {
     extend: {
       screens: {

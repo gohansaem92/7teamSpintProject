@@ -20,64 +20,14 @@ body {
   font-family: "Pretendard";
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  /* Custom placeholder color utility */
-  .placeholder-gray::placeholder {
-    background-color: "transparent";
-    border: "none";
-    width: "100%";
-    color: #8f95b2;
-    font-weight: 500;
-    font-size: 16px;
-    font-family: Pretendard;
-    line-height: 26px;
-    text-align: left;
-  }
-
-  /* Custom responsive image size */
-  .image-responsive {
-    width: 18px;
-    height: 18px;
-  }
-
-  @media (min-width: 640px) {
-    /* sm breakpoint */
-    .image-responsive-sm {
-      width: 24px;
-      height: 24px;
-    }
-  }
-}
-
-input.mantine-Input-input::placeholder {
-  color: #8f95b2;
-}
-
-:root {
-  --button-radius: 10px;
-}
-
 @media (max-width: 1200px) {
   body {
     overflow-x: hidden;
   }
 }
 
-.button {
-  -webkit-appearance: button;
-  background-color: #4cbfa4;
-  background-image: none;
-}
-
 .button:disabled,
 .button[data-disabled] {
   color: #fff;
   background-color: #c6cada;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
 }

@@ -28,9 +28,10 @@ export default function Home() {
               <h2 className="text-60 font-bold leading-70 md:text-90 md:leading-100">나만의 위키</h2>
             </Box>
           </Flex>
-          <Button component={Link} href="/wiki" variant="filled" color="#474D66" size={btnSize} h={{ base: 54, sm: 60 }} radius="md">
+          <Button variant="filled" color="#474D66" size={btnSize} h={{ base: 54, sm: 60 }} radius="md">
             위키 만들기
           </Button>
+
           <div className="isolate">
             <Box w={{ base: 336, sm: 498 }} h={{ base: 398, sm: 590 }} mt={44}>
               <Image src={LandingImg_01} alt="위키 이미지" width={0} height={0} className="w-full" />
