@@ -5,7 +5,7 @@ const config: Config = {
   corePlugins: {
     preflight: false, // Preflight 비활성화
   },
-  content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/**/*.{js,ts,jsx,tsx,mdx}", "./src/styles/preflight.css",],
+  content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/**/*.{js,ts,jsx,tsx,mdx}", "./src/styles/preflight.css"],
   theme: {
     extend: {
       screens: {
