@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo } from "react";
+import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
 
 type AuthContextType = {
   loggedIn: boolean;
@@ -10,7 +10,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
-  // Use useMemo to memoize the context value
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setLoggedIn(!!accessToken);
+  }, []);
+
   const value = useMemo(() => ({ loggedIn, setLoggedIn }), [loggedIn]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

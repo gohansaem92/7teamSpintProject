@@ -68,18 +68,7 @@ export default function Header() {
       }
     };
 
-    // 로그인 상태 여부를 확인하는 과정
-    const accessToken = localStorage.getItem("accessToken");
-    // 1. 로컬 스토리지에 엑세스 토큰을 가져와 할당
-    if (accessToken) {
-      // 2. 엑세스 토큰이 존재하면 로그인 상태를 true로 변경
-      setLoggedIn(true);
-      getNotiData();
-      // 2.2 엑세스 토큰이 존재하면 Noti 데이터 가져오는 함수 호출
-    } else {
-      // 3. 엑세스 토큰이 존재하지 않으면 로그인 상태를 false로 변경
-      setLoggedIn(false);
-    }
+    if (loggedIn) getNotiData();
   }, [loggedIn, setLoggedIn]);
 
   // eslint-disable-next-line no-console
