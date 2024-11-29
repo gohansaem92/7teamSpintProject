@@ -1,31 +1,19 @@
 import IcoBurger from "@/public/assets/ic_burger.svg";
 import ImgLogo from "@/public/assets/img_logo.webp";
 import { Box, Group, Menu, ThemeIcon } from "@mantine/core";
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import IcoProfile from "@/public/assets/ic_profile.svg";
 import IcoAlarm from "@/public/assets/ic_alarm.svg";
 import { notifications } from "@mantine/notifications";
 import { useDisclosure } from "@mantine/hooks";
-import { isAxiosError } from "axios";
-import axiosInstance from "@/src/apis/axios";
-import { NotiData } from "@/src/types/NotificationResponse";
 import WikiEditNotification from "@/src/components/WikiEditNotification";
 import { useAuth } from "@/src/contexts/AuthContext";
+import { useNotifications } from "@/src/contexts/NotificationContext";
 
 export default function Header() {
   const { loggedIn, setLoggedIn } = useAuth();
-  const [notiData, setNotiData] = useState<NotiData>({
-    totalCount: 0,
-    list: [
-      {
-        createdAt: "",
-        content: "",
-        id: 0,
-      },
-    ],
-  });
+  const { notiData } = useNotifications();
   const [opened, { open: openNoti, close: closeNoti }] = useDisclosure(false);
 
   const handleLogout = () => {
@@ -46,30 +34,9 @@ export default function Header() {
       closeNoti();
     } else {
       openNoti();
+      // fetchNotifications(); // Refresh notifications on open
     }
   };
-
-  useEffect(() => {
-    // Noti 데이터를 가져오는 함수
-    const getNotiData = async () => {
-      try {
-        const res = await axiosInstance.get("notifications?pageSize=3");
-        if (res.status === 200) {
-          setNotiData(res.data);
-        }
-      } catch (error) {
-        if (isAxiosError(error)) {
-          if (error.response?.status === 404) {
-            window.location.href = "/";
-          } else if (error.response?.status === 401) {
-            window.location.href = "/";
-          }
-        }
-      }
-    };
-
-    if (loggedIn) getNotiData();
-  }, [loggedIn, setLoggedIn]);
 
   // eslint-disable-next-line no-console
   console.log(loggedIn);
