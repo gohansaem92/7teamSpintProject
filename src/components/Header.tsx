@@ -7,16 +7,15 @@ import Link from "next/link";
 import IcoProfile from "@/public/assets/ic_profile.svg";
 import IcoAlarm from "@/public/assets/ic_alarm.svg";
 import { notifications } from "@mantine/notifications";
-import { usePathname } from "next/navigation";
 import { useDisclosure } from "@mantine/hooks";
 import { isAxiosError } from "axios";
 import axiosInstance from "@/src/apis/axios";
 import { NotiData } from "@/src/types/NotificationResponse";
 import WikiEditNotification from "@/src/components/WikiEditNotification";
+import { useAuth } from "@/src/contexts/AuthContext";
 
 export default function Header() {
-  const pathName = usePathname();
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { loggedIn, setLoggedIn } = useAuth();
   const [notiData, setNotiData] = useState<NotiData>({
     totalCount: 0,
     list: [
@@ -51,6 +50,7 @@ export default function Header() {
   };
 
   useEffect(() => {
+    // Noti 데이터를 가져오는 함수
     const getNotiData = async () => {
       try {
         const res = await axiosInstance.get("notifications?pageSize=3");
@@ -67,14 +67,23 @@ export default function Header() {
         }
       }
     };
+
+    // 로그인 상태 여부를 확인하는 과정
     const accessToken = localStorage.getItem("accessToken");
+    // 1. 로컬 스토리지에 엑세스 토큰을 가져와 할당
     if (accessToken) {
+      // 2. 엑세스 토큰이 존재하면 로그인 상태를 true로 변경
       setLoggedIn(true);
       getNotiData();
+      // 2.2 엑세스 토큰이 존재하면 Noti 데이터 가져오는 함수 호출
     } else {
+      // 3. 엑세스 토큰이 존재하지 않으면 로그인 상태를 false로 변경
       setLoggedIn(false);
     }
-  }, [pathName]);
+  }, [loggedIn, setLoggedIn]);
+
+  // eslint-disable-next-line no-console
+  console.log(loggedIn);
 
   return (
     <div className="h-[60px] md:h-[80px]">

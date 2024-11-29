@@ -8,9 +8,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "@/src/contexts/AuthContext";
 
 export default function LogIn() {
   const router = useRouter();
+  const { setLoggedIn } = useAuth();
   const {
     register,
     handleSubmit,
@@ -41,6 +43,7 @@ export default function LogIn() {
         const { accessToken, refreshToken } = response.data;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
+        setLoggedIn(true);
         router.push("/");
       }
     } catch (error) {

@@ -8,9 +8,11 @@ import { useForm } from "react-hook-form";
 import { SignUpFormData } from "@/src/types/userFormData";
 import { signUpSchema } from "@/src/schema/userFormSchema";
 import axios, { isAxiosError } from "@/src/apis/axios";
+import { useAuth } from "@/src/contexts/AuthContext";
 
 export default function SignUp() {
   const router = useRouter();
+  const { setLoggedIn } = useAuth();
   const {
     register,
     handleSubmit,
@@ -43,6 +45,7 @@ export default function SignUp() {
 
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
+      setLoggedIn(true);
 
       showNotification("회원가입 성공!", "가입이 완료되었습니다! 😊", "green.2");
       router.push("/");

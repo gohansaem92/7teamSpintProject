@@ -8,14 +8,17 @@ import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import type { AppProps } from "next/app";
 import Layout from "../components/layout";
+import { AuthProvider } from "../contexts/AuthContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <MantineProvider theme={theme}>
       <Notifications position="top-right" />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <AuthProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthProvider>
     </MantineProvider>
   );
 }
