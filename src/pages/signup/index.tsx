@@ -17,6 +17,13 @@ import { signUpSchema } from "@/src/schema/userFormSchema";
 import axios, { isAxiosError } from "@/src/apis/axios";
 import { useAuth } from "@/src/contexts/AuthContext";
 import getInputStyles from "@/src/utils/getInputStyles";
+import NOTIFICATION_MESSAGES from "@/src/constants/signupMessage";
+
+type NotificationData = {
+  color: string;
+  title: string;
+  message: string;
+};
 
 export default function SignUp() {
   const router = useRouter();
@@ -30,7 +37,7 @@ export default function SignUp() {
     mode: "all",
   });
 
-  const showNotification = (title: string, message: string, color: string) => {
+  const showNotification = ({ color, title, message }: NotificationData) => {
     notifications.show({
       color,
       title,
@@ -55,33 +62,18 @@ export default function SignUp() {
       localStorage.setItem("refreshToken", refreshToken);
       setLoggedIn(true);
 
-      showNotification(
-        "회원가입 성공!",
-        "가입이 완료되었습니다! 😊",
-        "green.2",
-      );
+      showNotification(NOTIFICATION_MESSAGES.success);
       router.push("/");
     } catch (error) {
       if (isAxiosError(error)) {
+        const errorMessage = error.response?.data.message || "알 수 없는 오류";
         if (error.response?.status === 400) {
-          showNotification(
-            "회원가입 실패!",
-            "이미 존재하는 이메일입니다! 🤥",
-            "red.1",
-          );
+          showNotification(NOTIFICATION_MESSAGES.emailExists);
         } else {
-          showNotification(
-            "회원가입 실패!",
-            `오류가 발생했습니다: ${error.response?.data.message || "알 수 없는 오류"}`,
-            "red.1",
-          );
+          showNotification(NOTIFICATION_MESSAGES.error(errorMessage));
         }
       } else {
-        showNotification(
-          "회원가입 실패!",
-          "예기치 않은 오류가 발생했습니다. 다시 시도해주세요.🤥",
-          "red.1",
-        );
+        showNotification(NOTIFICATION_MESSAGES.unexpectedError);
       }
     }
   };
