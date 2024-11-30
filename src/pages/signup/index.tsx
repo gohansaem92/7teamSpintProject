@@ -7,7 +7,7 @@ import {
   Title,
   Text,
 } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -18,12 +18,7 @@ import axios, { isAxiosError } from "@/src/apis/axios";
 import { useAuth } from "@/src/contexts/AuthContext";
 import getInputStyles from "@/src/utils/getInputStyles";
 import NOTIFICATION_MESSAGES from "@/src/constants/signupMessage";
-
-type NotificationData = {
-  color: string;
-  title: string;
-  message: string;
-};
+import showNotification from "@/src/utils/getNotification";
 
 export default function SignUp() {
   const router = useRouter();
@@ -36,16 +31,6 @@ export default function SignUp() {
     resolver: zodResolver(signUpSchema),
     mode: "all",
   });
-
-  const showNotification = ({ color, title, message }: NotificationData) => {
-    notifications.show({
-      color,
-      title,
-      message,
-      autoClose: 1500,
-      withCloseButton: true,
-    });
-  };
 
   const onSubmit = async (data: SignUpFormData) => {
     try {
