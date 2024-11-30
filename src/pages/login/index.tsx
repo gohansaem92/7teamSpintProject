@@ -10,13 +10,14 @@ import {
   Title,
   Text,
 } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/src/contexts/AuthContext";
 import getInputStyles from "@/src/utils/getInputStyles";
+import showNotification from "@/src/utils/getNotification";
+import NOTIFICATION_MESSAGES from "@/src/constants/notificationMessage";
 
 export default function LogIn() {
   const router = useRouter();
@@ -29,16 +30,6 @@ export default function LogIn() {
     resolver: zodResolver(loginSchema),
     mode: "all",
   });
-
-  const showNotification = (title: string, message: string, color: string) => {
-    notifications.show({
-      color,
-      title,
-      message,
-      autoClose: 2000,
-      withCloseButton: true,
-    });
-  };
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -56,25 +47,16 @@ export default function LogIn() {
       }
     } catch (error) {
       if (isAxiosError(error)) {
+        const errorMessage = error.response?.data.message || "알 수 없는 오류";
         if (error.response?.status === 400) {
-          showNotification(
-            "로그인 실패!",
-            "이메일 또는 비밀번호가 일치하지 않습니다. 🤥",
-            "red.1",
-          );
+          showNotification(NOTIFICATION_MESSAGES.signin.invalidCredentials);
         } else {
           showNotification(
-            "로그인 실패!",
-            `오류가 발생했습니다: ${error.response?.data.message || "알 수 없는 오류"}`,
-            "#red.1",
+            NOTIFICATION_MESSAGES.signin.genericError(errorMessage),
           );
         }
       } else {
-        showNotification(
-          "로그인 실패!",
-          "예기치 않은 오류가 발생했습니다. 다시 시도해주세요.🤥",
-          "red.1",
-        );
+        showNotification(NOTIFICATION_MESSAGES.signin.unexpectedError);
       }
     }
   };

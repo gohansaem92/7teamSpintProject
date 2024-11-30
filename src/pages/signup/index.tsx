@@ -17,7 +17,7 @@ import { signUpSchema } from "@/src/schema/userFormSchema";
 import axios, { isAxiosError } from "@/src/apis/axios";
 import { useAuth } from "@/src/contexts/AuthContext";
 import getInputStyles from "@/src/utils/getInputStyles";
-import NOTIFICATION_MESSAGES from "@/src/constants/signupMessage";
+import NOTIFICATION_MESSAGES from "@/src/constants/notificationMessage";
 import showNotification from "@/src/utils/getNotification";
 
 export default function SignUp() {
@@ -47,18 +47,18 @@ export default function SignUp() {
       localStorage.setItem("refreshToken", refreshToken);
       setLoggedIn(true);
 
-      showNotification(NOTIFICATION_MESSAGES.success);
+      showNotification(NOTIFICATION_MESSAGES.signup.success);
       router.push("/");
     } catch (error) {
       if (isAxiosError(error)) {
         const errorMessage = error.response?.data.message || "알 수 없는 오류";
         if (error.response?.status === 400) {
-          showNotification(NOTIFICATION_MESSAGES.emailExists);
+          showNotification(NOTIFICATION_MESSAGES.signup.emailExists);
         } else {
-          showNotification(NOTIFICATION_MESSAGES.error(errorMessage));
+          showNotification(NOTIFICATION_MESSAGES.signup.error(errorMessage));
         }
       } else {
-        showNotification(NOTIFICATION_MESSAGES.unexpectedError);
+        showNotification(NOTIFICATION_MESSAGES.signup.unexpectedError);
       }
     }
   };
