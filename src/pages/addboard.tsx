@@ -20,7 +20,11 @@ export default function AddBoard() {
     setLoading(true);
     try {
       const userRes = await instance.get("/users/me");
-      setValues((prevValue) => ({ ...prevValue, writer: userRes.data.name, updatedAt: new Date().toLocaleDateString() }));
+      setValues((prevValue) => ({
+        ...prevValue,
+        writer: userRes.data.name,
+        updatedAt: new Date().toLocaleDateString(),
+      }));
     } catch (e: unknown) {
       if (e instanceof Error) {
         setError(e);
@@ -32,7 +36,11 @@ export default function AddBoard() {
     }
   };
 
-  const handleSubmit = async (data: { title: string; content: string; image?: string }) => {
+  const handleSubmit = async (data: {
+    title: string;
+    content: string;
+    image?: string;
+  }) => {
     setLoading(true);
     try {
       await instance.post("/articles", data);
@@ -54,7 +62,11 @@ export default function AddBoard() {
 
   if (loading) {
     return (
-      <Flex justify="center" align="center" mih={{ base: "calc(100vh - 60px)", sm: "calc(100vh - 80px)" }}>
+      <Flex
+        justify="center"
+        align="center"
+        mih={{ base: "calc(100vh - 60px)", sm: "calc(100vh - 80px)" }}
+      >
         <Loader size="md" />
       </Flex>
     );
@@ -62,9 +74,20 @@ export default function AddBoard() {
 
   if (error) {
     return (
-      <Flex direction="column" justify="center" align="center" mih={{ base: "calc(100vh - 60px)", sm: "calc(100vh - 80px)" }}>
+      <Flex
+        direction="column"
+        justify="center"
+        align="center"
+        mih={{ base: "calc(100vh - 60px)", sm: "calc(100vh - 80px)" }}
+      >
         <p className="text-red-200">{error?.message}</p>
-        <Button href="/boards" component={Link} variant="outline" color="#4CBFA4" mt={4}>
+        <Button
+          href="/boards"
+          component={Link}
+          variant="outline"
+          color="#4CBFA4"
+          mt={4}
+        >
           목록으로
         </Button>
       </Flex>
@@ -73,9 +96,21 @@ export default function AddBoard() {
 
   return (
     <Flex direction="column">
-      <WriteBoard type="create" initialValues={values} onSubmit={handleSubmit} />
+      <WriteBoard
+        type="create"
+        initialValues={values}
+        onSubmit={handleSubmit}
+      />
       <Flex justify="center" h={50}>
-        <Button href="/boards" component={Link} variant="outline" w={140} h={{ base: 40, sm: 45 }} color="#4CBFA4" px={40}>
+        <Button
+          href="/boards"
+          component={Link}
+          variant="outline"
+          w={140}
+          h={{ base: 40, sm: 45 }}
+          color="#4CBFA4"
+          px={40}
+        >
           목록으로
         </Button>
       </Flex>

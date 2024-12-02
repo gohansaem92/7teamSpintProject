@@ -10,7 +10,12 @@ interface WriteReplyProps {
   replyId?: number;
 }
 
-export default function WriteReply({ type, onUpdate, replyId = 0, initialValue = "" }: WriteReplyProps) {
+export default function WriteReply({
+  type,
+  onUpdate,
+  replyId = 0,
+  initialValue = "",
+}: WriteReplyProps) {
   const [content, setContent] = useState(initialValue);
   const router = useRouter();
   const { id } = router.query;
@@ -43,9 +48,18 @@ export default function WriteReply({ type, onUpdate, replyId = 0, initialValue =
           className="w-full rounded-[10px] bg-gray-50"
           styles={() => ({ input: { "--input-placeholder-color": "#8F95B2" } })}
         />
-        <Flex justify="space-between" align="flex-end" className="absolute bottom-0 w-full px-[15px] py-[13px]">
+        <Flex
+          justify="space-between"
+          align="flex-end"
+          className="absolute bottom-0 w-full px-[15px] py-[13px]"
+        >
           <p className="text-14 text-gray-300">{content?.length} / 500</p>
-          <Button type="submit" color="#4CBFA4" disabled={!content?.length} className="button">
+          <Button
+            type="submit"
+            color="#4CBFA4"
+            disabled={!content?.length}
+            className="button"
+          >
             댓글 등록
           </Button>
         </Flex>

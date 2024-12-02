@@ -11,12 +11,18 @@ type AuthEditResponseBody = {
   userId: number;
 };
 
-export default async function authEditWiki(answer: string, wikiCode: string): Promise<AuthEditResponseBody | boolean> {
+export default async function authEditWiki(
+  answer: string,
+  wikiCode: string,
+): Promise<AuthEditResponseBody | boolean> {
   try {
     const requestBody: AuthEditRequestBody = {
       securityAnswer: answer,
     };
-    const response = await axiosInstance.post<AuthEditResponseBody>(`profiles/${wikiCode}/ping`, requestBody);
+    const response = await axiosInstance.post<AuthEditResponseBody>(
+      `profiles/${wikiCode}/ping`,
+      requestBody,
+    );
     // note 200 response외의 리스폰스 반환 시 오류 알림
     if (response.status === 200) {
       return response.data;
@@ -48,7 +54,8 @@ export default async function authEditWiki(answer: string, wikiCode: string): Pr
     } else {
       notifications.show({
         title: "Error",
-        message: "예기치 못한 오류가 발생했습니다. 새로고침 후 다시 시도해주세요",
+        message:
+          "예기치 못한 오류가 발생했습니다. 새로고침 후 다시 시도해주세요",
         color: "red",
       });
     }

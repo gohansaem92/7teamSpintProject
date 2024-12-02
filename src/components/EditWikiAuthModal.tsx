@@ -16,14 +16,22 @@ type EditWikiAuthModalProps = {
   wikiCode: string;
 };
 
-export default function EditWikiAuthModal({ securityQuestion, opened, closeModal, setAnswer, setIsEditing, wikiCode }: EditWikiAuthModalProps) {
+export default function EditWikiAuthModal({
+  securityQuestion,
+  opened,
+  closeModal,
+  setAnswer,
+  setIsEditing,
+  wikiCode,
+}: EditWikiAuthModalProps) {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
       securityAnswer: "",
     },
     validate: {
-      securityAnswer: (value) => (value.trim().length > 0 ? null : "정확한 답변을 입력해 주세요"),
+      securityAnswer: (value) =>
+        value.trim().length > 0 ? null : "정확한 답변을 입력해 주세요",
     },
   });
 
@@ -58,10 +66,20 @@ export default function EditWikiAuthModal({ securityQuestion, opened, closeModal
         backgroundOpacity: 0.55,
         blur: 3,
       }}
-      transitionProps={{ transition: "fade", duration: 300, timingFunction: "linear" }}
+      transitionProps={{
+        transition: "fade",
+        duration: 300,
+        timingFunction: "linear",
+      }}
     >
       <div className="mb-4 flex flex-col items-center gap-4">
-        <Image className="mx-auto" src={ic_lock} alt="위키수정권한확인" width={42} height={42} />
+        <Image
+          className="mx-auto"
+          src={ic_lock}
+          alt="위키수정권한확인"
+          width={42}
+          height={42}
+        />
         <span className="text-center text-sm font-normal text-gray-400">
           다음 퀴즈를 맞추고
           <br />

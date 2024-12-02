@@ -47,7 +47,13 @@ export default function Header() {
         <Group justify="space-between" h="100%">
           <Group justify="space-between" gap={40} h="100%">
             <Link href="/">
-              <Image src={ImgLogo} width={107} height={30} alt="로고" priority />
+              <Image
+                src={ImgLogo}
+                width={107}
+                height={30}
+                alt="로고"
+                priority
+              />
             </Link>
             <Group h="100%" gap={40} visibleFrom="sm">
               <Link href="/wikilist" className="text-14 text-gray-800">
@@ -60,14 +66,36 @@ export default function Header() {
           </Group>
 
           {loggedIn ? (
-            <Menu width={120} position="bottom" radius="md" shadow="md" withinPortal>
+            <Menu
+              width={120}
+              position="bottom"
+              radius="md"
+              shadow="md"
+              withinPortal
+            >
               <Group>
                 <Group>
                   <Box style={{ position: "relative" }} onClick={activeNoti}>
-                    <Image src={IcoAlarm} width={32} height={32} alt="알림" className="cursor-pointer" />
+                    <Image
+                      src={IcoAlarm}
+                      width={32}
+                      height={32}
+                      alt="알림"
+                      className="cursor-pointer"
+                    />
                     <Box>
                       {notiData.totalCount > 0 ? (
-                        <ThemeIcon radius="xl" size="xs" color="red" style={{ position: "absolute", top: 0, left: 15, fontSize: 12 }}>
+                        <ThemeIcon
+                          radius="xl"
+                          size="xs"
+                          color="red"
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 15,
+                            fontSize: 12,
+                          }}
+                        >
                           {notiData.totalCount}
                         </ThemeIcon>
                       ) : null}
@@ -77,10 +105,22 @@ export default function Header() {
                 <Menu.Target>
                   <Group>
                     <Group hiddenFrom="sm">
-                      <Image src={IcoBurger} width={24} height={24} alt="메뉴" className="cursor-pointer" />
+                      <Image
+                        src={IcoBurger}
+                        width={24}
+                        height={24}
+                        alt="메뉴"
+                        className="cursor-pointer"
+                      />
                     </Group>
                     <Group visibleFrom="sm">
-                      <Image src={IcoProfile} width={32} height={32} alt="프로필" className="cursor-pointer" />
+                      <Image
+                        src={IcoProfile}
+                        width={32}
+                        height={32}
+                        alt="프로필"
+                        className="cursor-pointer"
+                      />
                     </Group>
                   </Group>
                 </Menu.Target>
@@ -88,22 +128,34 @@ export default function Header() {
 
               <Menu.Dropdown>
                 <Menu.Item hiddenFrom="sm">
-                  <Link href="/wikilist" className="flex justify-center p-2 text-14 text-gray-800">
+                  <Link
+                    href="/wikilist"
+                    className="flex justify-center p-2 text-14 text-gray-800"
+                  >
                     위키 목록
                   </Link>
                 </Menu.Item>
                 <Menu.Item hiddenFrom="sm">
-                  <Link href="/boards" className="flex justify-center p-2 text-14 text-gray-800">
+                  <Link
+                    href="/boards"
+                    className="flex justify-center p-2 text-14 text-gray-800"
+                  >
                     자유게시판
                   </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link href="/mypage" className="flex justify-center p-2 text-14 text-gray-800">
+                  <Link
+                    href="/mypage"
+                    className="flex justify-center p-2 text-14 text-gray-800"
+                  >
                     마이페이지
                   </Link>
                 </Menu.Item>
                 <Menu.Item onClick={handleLogout}>
-                  <Link href="/" className="flex justify-center p-2 text-14 text-gray-800">
+                  <Link
+                    href="/"
+                    className="flex justify-center p-2 text-14 text-gray-800"
+                  >
                     로그아웃
                   </Link>
                 </Menu.Item>
@@ -117,25 +169,46 @@ export default function Header() {
                 </Link>
               </Group>
               <Group hiddenFrom="sm">
-                <Menu width={120} position="bottom" radius="md" shadow="md" withinPortal>
+                <Menu
+                  width={120}
+                  position="bottom"
+                  radius="md"
+                  shadow="md"
+                  withinPortal
+                >
                   <Menu.Target>
-                    <Image src={IcoBurger} width={24} height={24} alt="메뉴" className="cursor-pointer" />
+                    <Image
+                      src={IcoBurger}
+                      width={24}
+                      height={24}
+                      alt="메뉴"
+                      className="cursor-pointer"
+                    />
                   </Menu.Target>
                   <Menu.Dropdown>
                     <Menu.Item>
-                      <Link href="/wikilist" className="flex justify-center p-2 text-14 text-gray-800">
+                      <Link
+                        href="/wikilist"
+                        className="flex justify-center p-2 text-14 text-gray-800"
+                      >
                         위키 목록
                       </Link>
                     </Menu.Item>
 
                     <Menu.Item>
-                      <Link href="/boards" className="flex justify-center p-2 text-14 text-gray-800">
+                      <Link
+                        href="/boards"
+                        className="flex justify-center p-2 text-14 text-gray-800"
+                      >
                         자유게시판
                       </Link>
                     </Menu.Item>
 
                     <Menu.Item>
-                      <Link href="/login" className="flex justify-center p-2 text-14 text-gray-800">
+                      <Link
+                        href="/login"
+                        className="flex justify-center p-2 text-14 text-gray-800"
+                      >
                         로그인
                       </Link>
                     </Menu.Item>

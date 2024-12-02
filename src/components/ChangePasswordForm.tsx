@@ -37,12 +37,20 @@ export default function ChangePasswordForm() {
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.status === 400) {
-          showNotification("변경 실패", `${error.response?.data.message}`, "red.1");
+          showNotification(
+            "변경 실패",
+            `${error.response?.data.message}`,
+            "red.1",
+          );
         } else {
           showNotification("변경 실패", "알 수 없는 오류", "red.1");
         }
       } else {
-        showNotification("변경 실패", "예기치 않은 오류가 발생했습니다. 다시 시도해주세요.🤥", "red.1");
+        showNotification(
+          "변경 실패",
+          "예기치 않은 오류가 발생했습니다. 다시 시도해주세요.🤥",
+          "red.1",
+        );
       }
     }
   };
@@ -72,7 +80,10 @@ export default function ChangePasswordForm() {
       <Title order={1} mb={32} size={24} c="gray.4">
         계정 설정
       </Title>
-      <form onSubmit={handleSubmit(onSubmit)} className="my-0 flex w-[335px] flex-col gap-[8px] py-[32px] md:w-[400px]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="my-0 flex w-[335px] flex-col gap-[8px] py-[32px] md:w-[400px]"
+      >
         <PasswordInput
           id="currentPassword"
           label="기존 비밀번호"
@@ -135,7 +146,14 @@ export default function ChangePasswordForm() {
           variant="filled"
         />
         <Flex justify="flex-end">
-          <Button type="submit" disabled={!isValid} w="89" color="green.1" radius="md" c="white">
+          <Button
+            type="submit"
+            disabled={!isValid}
+            w="89"
+            color="green.1"
+            radius="md"
+            c="white"
+          >
             변경하기
           </Button>
         </Flex>

@@ -8,7 +8,11 @@ type SetLinkModalProps = {
   setLink: (value: string) => void;
 };
 
-export default function SetLinkModal({ opened, onClose, setLink }: SetLinkModalProps) {
+export default function SetLinkModal({
+  opened,
+  onClose,
+  setLink,
+}: SetLinkModalProps) {
   const [url, setUrl] = useState<string>("");
 
   const handleSetUrl = () => {
@@ -25,7 +29,20 @@ export default function SetLinkModal({ opened, onClose, setLink }: SetLinkModalP
     }
   };
   return (
-    <Modal title="링크를 입력해주세요" opened={opened} onClose={onClose} size="sm" centered padding={20} radius={10} transitionProps={{ transition: "fade", duration: 200, timingFunction: "linear" }}>
+    <Modal
+      title="링크를 입력해주세요"
+      opened={opened}
+      onClose={onClose}
+      size="sm"
+      centered
+      padding={20}
+      radius={10}
+      transitionProps={{
+        transition: "fade",
+        duration: 200,
+        timingFunction: "linear",
+      }}
+    >
       <TextInput
         onChange={(event) => setUrl(event.currentTarget.value)}
         value={url}

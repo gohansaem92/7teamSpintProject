@@ -25,7 +25,11 @@ export const WriteBoardType = {
 };
 
 type WriteBoardProps = {
-  onSubmit: (data: { title: string; content: string; image?: string }) => Promise<void>;
+  onSubmit: (data: {
+    title: string;
+    content: string;
+    image?: string;
+  }) => Promise<void>;
   type: (typeof WriteBoardType)[keyof typeof WriteBoardType];
   initialValues: {
     title: string;
@@ -41,7 +45,11 @@ function extractTextFromHTML(htmlString: string | undefined) {
   return pureText ?? "";
 }
 
-export default function WriteBoard({ onSubmit, type = WriteBoardType.Create, initialValues = INITIAL_VALUES }: WriteBoardProps) {
+export default function WriteBoard({
+  onSubmit,
+  type = WriteBoardType.Create,
+  initialValues = INITIAL_VALUES,
+}: WriteBoardProps) {
   const [values, setValues] = useState({
     title: initialValues.title,
     content: initialValues.content,
@@ -49,9 +57,15 @@ export default function WriteBoard({ onSubmit, type = WriteBoardType.Create, ini
     updatedAt: initialValues.updatedAt,
   });
   const [titleImage, setTitleImage] = useState("");
-  const [submitDisabled, setSubmitDisabled] = useState(initialValues.title === "" && initialValues.content === "");
-  const [length, setLength] = useState<number | undefined>(extractTextFromHTML(initialValues.content).length ?? 0);
-  const [lengthExceptSpace, setLengthExceptSpace] = useState<number | undefined>(extractTextFromHTML(initialValues.content).replace(/ /g, "").length);
+  const [submitDisabled, setSubmitDisabled] = useState(
+    initialValues.title === "" && initialValues.content === "",
+  );
+  const [length, setLength] = useState<number | undefined>(
+    extractTextFromHTML(initialValues.content).length ?? 0,
+  );
+  const [lengthExceptSpace, setLengthExceptSpace] = useState<
+    number | undefined
+  >(extractTextFromHTML(initialValues.content).replace(/ /g, "").length);
   const inputSize = useMatches({
     base: "md",
     sm: "xl",
@@ -86,9 +100,14 @@ export default function WriteBoard({ onSubmit, type = WriteBoardType.Create, ini
     content: values.content,
     onUpdate: () => {
       setLength(extractTextFromHTML(editor?.getHTML()).length);
-      setLengthExceptSpace(extractTextFromHTML(editor?.getHTML()).replace(/ /g, "").length);
+      setLengthExceptSpace(
+        extractTextFromHTML(editor?.getHTML()).replace(/ /g, "").length,
+      );
       setSubmitDisabled(editor?.getText() === "" || values.title.length === 0);
-      setValues((prevValues) => ({ ...prevValues, content: editor?.getHTML() || "" }));
+      setValues((prevValues) => ({
+        ...prevValues,
+        content: editor?.getHTML() || "",
+      }));
     },
   });
 
@@ -98,7 +117,9 @@ export default function WriteBoard({ onSubmit, type = WriteBoardType.Create, ini
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues((prevValues) => ({ ...prevValues, title: e.target.value }));
-    setSubmitDisabled(values.content.length === 0 || e.target.value.length === 0);
+    setSubmitDisabled(
+      values.content.length === 0 || e.target.value.length === 0,
+    );
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -133,11 +154,17 @@ export default function WriteBoard({ onSubmit, type = WriteBoardType.Create, ini
           my={{ base: 0, sm: "5.5vh" }}
           className="rounded-[10px] bg-white md:drop-shadow-md"
         >
-          <h2 className="order-1 text-16 font-semibold text-gray-800 md:text-20 lg:text-24">{type === "edit" ? "게시물 수정하기" : "게시물 등록하기"}</h2>
+          <h2 className="order-1 text-16 font-semibold text-gray-800 md:text-20 lg:text-24">
+            {type === "edit" ? "게시물 수정하기" : "게시물 등록하기"}
+          </h2>
           <Box my={24} className="order-3">
             <p className="text-12 text-gray-400 md:text-16">
               <strong className="mr-2 font-normal">{values.writer}</strong>
-              <strong className="font-normal">{values.updatedAt instanceof Date ? values.updatedAt.toLocaleDateString() : new Date(values.updatedAt).toLocaleDateString()}</strong>
+              <strong className="font-normal">
+                {values.updatedAt instanceof Date
+                  ? values.updatedAt.toLocaleDateString()
+                  : new Date(values.updatedAt).toLocaleDateString()}
+              </strong>
             </p>
           </Box>
           <Divider color="#E4E5F0" className="order-4" />
@@ -158,23 +185,49 @@ export default function WriteBoard({ onSubmit, type = WriteBoardType.Create, ini
             </Flex>
           </Flex>
           <Divider color="#E4E5F0" className="order-6" />
-          <Flex direction="column" py={{ base: 16, sm: 20 }} flex="auto" className="order-7">
+          <Flex
+            direction="column"
+            py={{ base: 16, sm: 20 }}
+            flex="auto"
+            className="order-7"
+          >
             <p className="flex-shrink-0 flex-grow-0 text-gray-900">
               <span>공백포함 : 총 {length}자</span>
               <span aria-hidden="true"> | </span>
               <span>공백제외 : 총 {lengthExceptSpace}자</span>
             </p>
-            <Flex direction="column" pt={{ base: 16, sm: 20 }} className="flex-shrink flex-grow">
+            <Flex
+              direction="column"
+              pt={{ base: 16, sm: 20 }}
+              className="flex-shrink flex-grow"
+            >
               <Flex className="flex-shrink flex-grow">
-                <EditorContent editor={editor} content={values.content} placeholder="본문을 입력해주세요." className="w-full" />
+                <EditorContent
+                  editor={editor}
+                  content={values.content}
+                  placeholder="본문을 입력해주세요."
+                  className="w-full"
+                />
               </Flex>
-              <Flex bg="white" justify={{ base: "center", sm: "flex-start" }} className="sticky bottom-8 flex-shrink-0 flex-grow-0 rounded-full border">
+              <Flex
+                bg="white"
+                justify={{ base: "center", sm: "flex-start" }}
+                className="sticky bottom-8 flex-shrink-0 flex-grow-0 rounded-full border"
+              >
                 <MenuBar editor={editor} setTitleImage={setTitleImage} />
               </Flex>
             </Flex>
           </Flex>
           <Flex className="order-2 self-end">
-            <Button type="submit" className="button" w={{ base: 90, sm: 140 }} h={{ base: 40, sm: 45 }} color="#4CBFA4" mt={-31} disabled={submitDisabled}>
+            <Button
+              type="submit"
+              className="button"
+              w={{ base: 90, sm: 140 }}
+              h={{ base: 40, sm: 45 }}
+              color="#4CBFA4"
+              mt={-31}
+              disabled={submitDisabled}
+            >
               {type === WriteBoardType.Edit ? "수정하기" : "등록하기"}
             </Button>
           </Flex>

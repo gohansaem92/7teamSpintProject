@@ -1,6 +1,15 @@
 import Image from "next/image";
 import { Editor } from "@tiptap/react";
-import { ActionIcon, Button, ColorPicker, Flex, Loader, Modal, TextInput, useMatches } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  ColorPicker,
+  Flex,
+  Loader,
+  Modal,
+  TextInput,
+  useMatches,
+} from "@mantine/core";
 import { useCallback, useState } from "react";
 import axios from "@/src/apis/axios";
 import iconBold from "@/public/assets/ic_bold.svg";
@@ -17,10 +26,21 @@ import iconLink from "@/public/assets/ic_link.svg";
 import { useDisclosure } from "@mantine/hooks";
 import FileInput from "./FileInput";
 
-export default function MenuBar({ editor, setTitleImage }: { editor: Editor; setTitleImage: (arg0: string) => void }) {
-  const [colorPickerOpened, { open: openColorPicker, close: closeColorPicker }] = useDisclosure(false);
-  const [uploaderOpened, { open: openUploader, close: closeUploader }] = useDisclosure(false);
-  const [anchorOpened, { open: openAnchor, close: closeAnchor }] = useDisclosure(false);
+export default function MenuBar({
+  editor,
+  setTitleImage,
+}: {
+  editor: Editor;
+  setTitleImage: (arg0: string) => void;
+}) {
+  const [
+    colorPickerOpened,
+    { open: openColorPicker, close: closeColorPicker },
+  ] = useDisclosure(false);
+  const [uploaderOpened, { open: openUploader, close: closeUploader }] =
+    useDisclosure(false);
+  const [anchorOpened, { open: openAnchor, close: closeAnchor }] =
+    useDisclosure(false);
   const [fileValue, setFileValue] = useState<File | null>(null);
   const [colorValue, handleColorChange] = useState("");
   const [colorClass, setColorClass] = useState("");
@@ -33,7 +53,9 @@ export default function MenuBar({ editor, setTitleImage }: { editor: Editor; set
   });
 
   const handleColoring = () => {
-    setColorClass(editor.isActive("textStyle", { color: colorValue }) ? "is-active" : "");
+    setColorClass(
+      editor.isActive("textStyle", { color: colorValue }) ? "is-active" : "",
+    );
     editor.chain().focus().setColor(colorValue).run();
   };
 
@@ -72,7 +94,12 @@ export default function MenuBar({ editor, setTitleImage }: { editor: Editor; set
       return;
     }
 
-    editor.chain().focus().extendMarkRange("link").setLink({ href: linkValue, target: "_blank" }).run();
+    editor
+      .chain()
+      .focus()
+      .extendMarkRange("link")
+      .setLink({ href: linkValue, target: "_blank" })
+      .run();
     setLinkValue("");
   }, [editor, linkValue]);
 
@@ -118,7 +145,9 @@ export default function MenuBar({ editor, setTitleImage }: { editor: Editor; set
               size="lg"
               aria-label="Settings"
               onClick={() => editor.chain().focus().setTextAlign("left").run()}
-              className={editor.isActive({ textAlign: "left" }) ? "is-active" : ""}
+              className={
+                editor.isActive({ textAlign: "left" }) ? "is-active" : ""
+              }
             >
               <Image src={iconLeft} alt="왼쪽 정렬" width={24} height={24} />
             </ActionIcon>
@@ -126,17 +155,28 @@ export default function MenuBar({ editor, setTitleImage }: { editor: Editor; set
               variant="transparent"
               size="lg"
               aria-label="Settings"
-              onClick={() => editor.chain().focus().setTextAlign("center").run()}
-              className={editor.isActive({ textAlign: "center" }) ? "is-active" : ""}
+              onClick={() =>
+                editor.chain().focus().setTextAlign("center").run()
+              }
+              className={
+                editor.isActive({ textAlign: "center" }) ? "is-active" : ""
+              }
             >
-              <Image src={iconCenter} alt="가운데 정렬" width={24} height={24} />
+              <Image
+                src={iconCenter}
+                alt="가운데 정렬"
+                width={24}
+                height={24}
+              />
             </ActionIcon>
             <ActionIcon
               variant="transparent"
               size="lg"
               aria-label="Settings"
               onClick={() => editor.chain().focus().setTextAlign("right").run()}
-              className={editor.isActive({ textAlign: "right" }) ? "is-active" : ""}
+              className={
+                editor.isActive({ textAlign: "right" }) ? "is-active" : ""
+              }
             >
               <Image src={iconRight} alt="오른쪽 정렬" width={24} height={24} />
             </ActionIcon>
@@ -149,7 +189,12 @@ export default function MenuBar({ editor, setTitleImage }: { editor: Editor; set
               onClick={() => editor.chain().focus().toggleBulletList().run()}
               className={editor.isActive("bulletList") ? "is-active" : ""}
             >
-              <Image src={iconBulletList} alt="글머리 기호" width={24} height={24} />
+              <Image
+                src={iconBulletList}
+                alt="글머리 기호"
+                width={24}
+                height={24}
+              />
             </ActionIcon>
             <ActionIcon
               variant="transparent"
@@ -158,28 +203,65 @@ export default function MenuBar({ editor, setTitleImage }: { editor: Editor; set
               onClick={() => editor.chain().focus().toggleOrderedList().run()}
               className={editor.isActive("orderedList") ? "is-active" : ""}
             >
-              <Image src={iconOrderedList} alt="글번호" width={24} height={24} />
+              <Image
+                src={iconOrderedList}
+                alt="글번호"
+                width={24}
+                height={24}
+              />
             </ActionIcon>
-            <ActionIcon variant="transparent" size="lg" aria-label="Settings" onClick={openColorPicker} className={colorClass}>
+            <ActionIcon
+              variant="transparent"
+              size="lg"
+              aria-label="Settings"
+              onClick={openColorPicker}
+              className={colorClass}
+            >
               <Image src={iconColoring} alt="글자색" width={24} height={24} />
             </ActionIcon>
-            <ActionIcon variant="transparent" size="lg" aria-label="Settings" onClick={openUploader}>
+            <ActionIcon
+              variant="transparent"
+              size="lg"
+              aria-label="Settings"
+              onClick={openUploader}
+            >
               <Image src={iconImage} alt="이미지" width={24} height={24} />
             </ActionIcon>
           </Flex>
         </Flex>
         <Flex>
-          <ActionIcon variant="transparent" size="lg" bg="#E2E8F0" style={{ borderRadius: "50%" }} aria-label="Settings" onClick={openAnchor} className={editor.isActive("link") ? "is-active" : ""}>
+          <ActionIcon
+            variant="transparent"
+            size="lg"
+            bg="#E2E8F0"
+            style={{ borderRadius: "50%" }}
+            aria-label="Settings"
+            onClick={openAnchor}
+            className={editor.isActive("link") ? "is-active" : ""}
+          >
             <Image src={iconLink} alt="링크" width={24} height={24} />
           </ActionIcon>
         </Flex>
       </Flex>
-      <Modal centered opened={colorPickerOpened} size="xs" onClose={closeColorPicker} radius="md">
+      <Modal
+        centered
+        opened={colorPickerOpened}
+        size="xs"
+        onClose={closeColorPicker}
+        radius="md"
+      >
         <Flex direction="column" align="center">
           <Flex justify="center" mb={20}>
-            <strong className="text-16 font-semibold md:text-18">색상 선택</strong>
+            <strong className="text-16 font-semibold md:text-18">
+              색상 선택
+            </strong>
           </Flex>
-          <ColorPicker format="rgba" size="lg" value={colorValue} onChange={handleColorChange} />
+          <ColorPicker
+            format="rgba"
+            size="lg"
+            value={colorValue}
+            onChange={handleColorChange}
+          />
           <Button
             type="submit"
             className="button self-end"
@@ -208,17 +290,27 @@ export default function MenuBar({ editor, setTitleImage }: { editor: Editor; set
       >
         <Flex direction="column">
           {loading && (
-            <Flex justify="center" align="center" className="absolute inset-0 bg-white">
+            <Flex
+              justify="center"
+              align="center"
+              className="absolute inset-0 bg-white"
+            >
               <Loader size="md" />
             </Flex>
           )}
           {error && (
-            <Flex justify="center" align="center" className="absolute inset-0 bg-white">
+            <Flex
+              justify="center"
+              align="center"
+              className="absolute inset-0 bg-white"
+            >
               {error?.message}
             </Flex>
           )}
           <Flex justify="center" mb={20}>
-            <strong className="text-16 font-semibold md:text-18">이미지 선택</strong>
+            <strong className="text-16 font-semibold md:text-18">
+              이미지 선택
+            </strong>
           </Flex>
           <FileInput value={fileValue} onChange={setFileValue} />
           <Flex justify="flex-end">
@@ -240,10 +332,18 @@ export default function MenuBar({ editor, setTitleImage }: { editor: Editor; set
           </Flex>
         </Flex>
       </Modal>
-      <Modal centered opened={anchorOpened} size={modalSize} onClose={closeAnchor} radius="md">
+      <Modal
+        centered
+        opened={anchorOpened}
+        size={modalSize}
+        onClose={closeAnchor}
+        radius="md"
+      >
         <Flex direction="column" align="center">
           <Flex justify="center" mb={20}>
-            <strong className="text-16 font-semibold md:text-18">링크 만들기</strong>
+            <strong className="text-16 font-semibold md:text-18">
+              링크 만들기
+            </strong>
           </Flex>
           <TextInput
             variant="unstyled"

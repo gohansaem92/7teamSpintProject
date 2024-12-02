@@ -61,7 +61,8 @@ function RenderedHTML({ htmlContent }: RenderedHTMLProps) {
 
 export default function Wiki() {
   const [wikiData, setWikiData] = useState<ProfileResponse>(WIKI_INITIAL);
-  const [profileData, setProfileData] = useState<ProfileCardData>(PROFILE_INITIAL);
+  const [profileData, setProfileData] =
+    useState<ProfileCardData>(PROFILE_INITIAL);
   const [wikiUrl, setWikiUrl] = useState<string>("");
   const [formData, setFormData] = useState({});
   const [answer, setAnswer] = useState<string>("");
@@ -81,13 +82,33 @@ export default function Wiki() {
   useEffect(() => {
     const getWikiDataByCode = async () => {
       try {
-        const response = await instance.get(`/profiles`, { params: { name: id } });
+        const response = await instance.get(`/profiles`, {
+          params: { name: id },
+        });
         const firstItem = response.data.list[0].code;
         const { data } = await instance.get(`/profiles/${firstItem}`);
         setWikiData(data);
 
-        const { city, mbti, job, sns, birthday, nickname, bloodType, nationality } = data;
-        const profileCardData: ProfileCardData = { city, mbti, job, sns, birthday, nickname, bloodType, nationality };
+        const {
+          city,
+          mbti,
+          job,
+          sns,
+          birthday,
+          nickname,
+          bloodType,
+          nationality,
+        } = data;
+        const profileCardData: ProfileCardData = {
+          city,
+          mbti,
+          job,
+          sns,
+          birthday,
+          nickname,
+          bloodType,
+          nationality,
+        };
         setProfileData(profileCardData);
 
         const currentUrl: string = window.location.href;
@@ -177,10 +198,15 @@ export default function Wiki() {
   return (
     <>
       {isEditing ? (
-        <form className="m-3 flex min-h-[1100px] flex-col gap-[15px] md:mx-[60px] md:mt-[47px] md:gap-[10px] xl:mx-auto xl:max-w-[1700px]" onSubmit={handleSubmit}>
+        <form
+          className="m-3 flex min-h-[1100px] flex-col gap-[15px] md:mx-[60px] md:mt-[47px] md:gap-[10px] xl:mx-auto xl:max-w-[1700px]"
+          onSubmit={handleSubmit}
+        >
           <div className="flex flex-col gap-[15px] md:gap-[10px] xl:fixed xl:left-[70%] xl:top-[120px] xl:flex-col-reverse">
             <div className="flex h-10 items-center justify-between md:mb-[10px]">
-              <span className="text-32 font-semibold leading-none text-gray-800 md:text-[48px] xl:invisible">{wikiData.name}</span>
+              <span className="text-32 font-semibold leading-none text-gray-800 md:text-[48px] xl:invisible">
+                {wikiData.name}
+              </span>
               <div className="flex gap-[10px]">
                 <Button
                   color="white"
@@ -211,10 +237,18 @@ export default function Wiki() {
                 </Button>
               </div>
             </div>
-            <ProfileCardEditor profileData={profileData} profileImage={wikiData.image} handleChangeProfile={handleChangeProfile} />
+            <ProfileCardEditor
+              profileData={profileData}
+              profileImage={wikiData.image}
+              handleChangeProfile={handleChangeProfile}
+            />
           </div>
           <div className="flex flex-col gap-4 md:mt-[30px] xl:ml-[100px] xl:mr-[530px] xl:mt-0 xl:min-w-[700px] xl:max-w-[1120px]">
-            <WikiEditor initialData={wikiData.content} handleChangeContent={handleChangeContent} title={wikiData.name} />
+            <WikiEditor
+              initialData={wikiData.content}
+              handleChangeContent={handleChangeContent}
+              title={wikiData.name}
+            />
           </div>
         </form>
       ) : (
@@ -224,7 +258,9 @@ export default function Wiki() {
             <div className="flex flex-col justify-between gap-6 md:gap-8 xl:mr-[450px] xl:max-w-[860px]">
               {/* content header label */}
               <div className="px-auto flex h-[43px] justify-between">
-                <span className="text-32 font-semibold leading-none text-gray-800 md:text-[48px]">{wikiData.name}</span>
+                <span className="text-32 font-semibold leading-none text-gray-800 md:text-[48px]">
+                  {wikiData.name}
+                </span>
                 <Button color="green.1" size="sm" onClick={handleClickEdit}>
                   위키 참여하기
                 </Button>
@@ -236,14 +272,25 @@ export default function Wiki() {
                     className={`flex h-[34px] max-w-[235px] items-center gap-1 rounded-[10px] px-[10px] text-green-300 ${copied ? "bg-gray-200" : "bg-green-100 hover:brightness-95"}`}
                     onClick={copy}
                   >
-                    <Image className="h-5 w-5" src={ic_copy_link} alt="위키링크복사하기" />
-                    <div className="truncate text-sm font-normal">{copied ? "Copied!" : wikiUrl}</div>
+                    <Image
+                      className="h-5 w-5"
+                      src={ic_copy_link}
+                      alt="위키링크복사하기"
+                    />
+                    <div className="truncate text-sm font-normal">
+                      {copied ? "Copied!" : wikiUrl}
+                    </div>
                   </button>
                 )}
               </CopyButton>
             </div>
             <div className="xl:fixed xl:left-[70%] xl:top-[120px]">
-              <ProfileCard profileData={profileData} profileImage={wikiData.image} toggleProfile={toggleProfile} isProfileOpen={isProfileOpen} />
+              <ProfileCard
+                profileData={profileData}
+                profileImage={wikiData.image}
+                toggleProfile={toggleProfile}
+                isProfileOpen={isProfileOpen}
+              />
             </div>
             {/* content text */}
             {/* note 위키 콘텐츠 없을 때 조건부 렌더링 */}
@@ -253,8 +300,12 @@ export default function Wiki() {
               </article>
             ) : (
               <div className="mt-8 flex h-auto flex-col items-center justify-center bg-gray-100 p-12 xl:mr-[400px] xl:max-w-[860px]">
-                <span className="text-16 text-gray-400">아직 작성된 내용이 없네요</span>
-                <span className="text-16 text-gray-400">위키에 참여해 보세요!</span>
+                <span className="text-16 text-gray-400">
+                  아직 작성된 내용이 없네요
+                </span>
+                <span className="text-16 text-gray-400">
+                  위키에 참여해 보세요!
+                </span>
                 <Button className="mt-5" color="green.1" size="sm">
                   시작하기
                 </Button>
@@ -263,7 +314,14 @@ export default function Wiki() {
           </section>
         </main>
       )}
-      <EditWikiAuthModal securityQuestion={wikiData.securityQuestion} opened={opened} closeModal={closeModal} wikiCode={id} setAnswer={setAnswer} setIsEditing={setIsEditing} />
+      <EditWikiAuthModal
+        securityQuestion={wikiData.securityQuestion}
+        opened={opened}
+        closeModal={closeModal}
+        wikiCode={id}
+        setAnswer={setAnswer}
+        setIsEditing={setIsEditing}
+      />
     </>
   );
 }

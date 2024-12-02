@@ -26,10 +26,25 @@ const icons = {
   link: ic_link,
 };
 
-export default function Button({ onClick, active, iconName, alt }: ButtonProps) {
+export default function Button({
+  onClick,
+  active,
+  iconName,
+  alt,
+}: ButtonProps) {
   return (
-    <button type="button" onClick={onClick} className={`flex h-6 w-6 items-center justify-center rounded-[5px] hover:bg-gray-200 ${active ? "bg-gray-300" : ""}`}>
-      <Image className="h-6 w-6" src={icons[iconName]} alt={alt} width={24} height={24} />
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex h-6 w-6 items-center justify-center rounded-[5px] hover:bg-gray-200 ${active ? "bg-gray-300" : ""}`}
+    >
+      <Image
+        className="h-6 w-6"
+        src={icons[iconName]}
+        alt={alt}
+        width={24}
+        height={24}
+      />
     </button>
   );
 }

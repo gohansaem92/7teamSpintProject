@@ -33,10 +33,26 @@ export default function FileInput({ value, onChange }: FileInputProps) {
         <Image src={preview} width={354} height={160} alt="이미지 미리보기" />
       ) : (
         <>
-          <label htmlFor="item-file" className="flex min-h-[160px] max-w-[240px] justify-center bg-gray-50 md:min-h-[160px] md:max-w-[354px]">
-            <Image width="48" height="48" src={icoCamera} alt="아이콘" aria-hidden="true" />
+          <label
+            htmlFor="item-file"
+            className="flex min-h-[160px] max-w-[240px] justify-center bg-gray-50 md:min-h-[160px] md:max-w-[354px]"
+          >
+            <Image
+              width="48"
+              height="48"
+              src={icoCamera}
+              alt="아이콘"
+              aria-hidden="true"
+            />
           </label>
-          <input type="file" id="item-file" accept="image/png, image/jpeg" ref={fileInput} onChange={handleChange} className="hidden" />
+          <input
+            type="file"
+            id="item-file"
+            accept="image/png, image/jpeg"
+            ref={fileInput}
+            onChange={handleChange}
+            className="hidden"
+          />
         </>
       )}
     </div>

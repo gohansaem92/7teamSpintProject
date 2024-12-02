@@ -21,26 +21,46 @@ const labels: Record<keyof ProfileCardData, string> = {
   nationality: "국적",
 };
 
-export default function ProfileCard({ profileData, profileImage, toggleProfile, isProfileOpen }: ProfileCardProps) {
+export default function ProfileCard({
+  profileData,
+  profileImage,
+  toggleProfile,
+  isProfileOpen,
+}: ProfileCardProps) {
   return (
     <section
       className={`flex flex-col rounded-xl border-none px-5 py-3 shadow-lg shadow-gray-300 transition-all duration-300 ease-in-out md:px-5 md:py-6 xl:h-[671px] xl:max-w-[320px] xl:p-[30px] ${isProfileOpen ? "h-[260px] md:h-[290px]" : "h-[126px] md:h-[135px]"}`}
     >
       <article className="flex flex-grow gap-5 md:gap-8 xl:flex-col xl:gap-[30px]">
         <div className="relative h-[62px] w-[62px] overflow-hidden rounded-full md:h-[71px] md:w-[71px] xl:m-[30px] xl:h-[200px] xl:w-[200px]">
-          <Image layout="fill" className="object-contain" src={profileImage || ic_profile_skeleton} alt="프로필이미지" />
+          <Image
+            layout="fill"
+            className="object-contain"
+            src={profileImage || ic_profile_skeleton}
+            alt="프로필이미지"
+          />
         </div>
 
-        <div className={`flex flex-col gap-2 truncate transition-all duration-300 ease-in-out xl:h-[304px] xl:gap-4 ${isProfileOpen ? "h-[205px] md:h-[234px]" : "h-[70px] md:h-[80px]"}`}>
+        <div
+          className={`flex flex-col gap-2 truncate transition-all duration-300 ease-in-out xl:h-[304px] xl:gap-4 ${isProfileOpen ? "h-[205px] md:h-[234px]" : "h-[70px] md:h-[80px]"}`}
+        >
           {Object.entries(profileData).map(([key, value]) => (
             <div key={key} className="flex gap-5">
-              <div className="w-20 text-12 text-gray-400 md:text-14">{labels[key as keyof ProfileCardData]}</div>
-              <div className="min-w-40 truncate text-12 text-gray-800 md:text-14">{value.length > 0 ? value : "정보없음"}</div>
+              <div className="w-20 text-12 text-gray-400 md:text-14">
+                {labels[key as keyof ProfileCardData]}
+              </div>
+              <div className="min-w-40 truncate text-12 text-gray-800 md:text-14">
+                {value.length > 0 ? value : "정보없음"}
+              </div>
             </div>
           ))}
         </div>
       </article>
-      <button className="mx-auto xl:hidden" type="button" onClick={toggleProfile}>
+      <button
+        className="mx-auto xl:hidden"
+        type="button"
+        onClick={toggleProfile}
+      >
         <Image
           src={ic_chevron}
           className={`h-6 w-6 transform transition-transform duration-300 ease-in-out ${isProfileOpen ? "rotate-180" : ""}`}

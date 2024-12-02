@@ -7,9 +7,13 @@ type CheckWikiStatusResponseBody = {
   userId: number;
 };
 
-export default async function checkWikiStatus(wikiCode: string): Promise<boolean> {
+export default async function checkWikiStatus(
+  wikiCode: string,
+): Promise<boolean> {
   try {
-    const response = await axiosInstance.get<CheckWikiStatusResponseBody>(`profiles/${wikiCode}/ping`);
+    const response = await axiosInstance.get<CheckWikiStatusResponseBody>(
+      `profiles/${wikiCode}/ping`,
+    );
 
     if (response.status === 204) {
       // note 수정 중이 아닌 경우 true 반환

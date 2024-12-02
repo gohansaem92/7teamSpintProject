@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useMemo,
+  useEffect,
+} from "react";
 
 type AuthContextType = {
   loggedIn: boolean;

@@ -9,7 +9,11 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export default function Pagination({ totalPages, currentPage, onPageChange }: PaginationProps) {
+export default function Pagination({
+  totalPages,
+  currentPage,
+  onPageChange,
+}: PaginationProps) {
   const pageButtons = [];
   const maxVisiblePages = 5;
 
@@ -43,7 +47,13 @@ export default function Pagination({ totalPages, currentPage, onPageChange }: Pa
           type="button"
         >
           <div className="absolute left-2 top-3">
-            <Image src={leftArrow} alt="이전 화살표" width={24} height={24} draggable="false" />
+            <Image
+              src={leftArrow}
+              alt="이전 화살표"
+              width={24}
+              height={24}
+              draggable="false"
+            />
           </div>
         </button>
       </div>
@@ -56,7 +66,13 @@ export default function Pagination({ totalPages, currentPage, onPageChange }: Pa
           type="button"
         >
           <div className="absolute right-2 top-3">
-            <Image src={rightArrow} alt="다음 화살표" width={24} height={24} draggable="false" />
+            <Image
+              src={rightArrow}
+              alt="다음 화살표"
+              width={24}
+              height={24}
+              draggable="false"
+            />
           </div>
         </button>
       </div>

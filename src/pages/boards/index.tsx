@@ -63,7 +63,10 @@ function PostPage() {
           setBestPosts(
             response.data.list.map((post: Post) => ({
               ...post,
-              image: { src: post.image || indexImage, alt: post.image ? "업로드 이미지" : "기본 이미지" },
+              image: {
+                src: post.image || indexImage,
+                alt: post.image ? "업로드 이미지" : "기본 이미지",
+              },
             })),
           );
         } else {
@@ -103,7 +106,11 @@ function PostPage() {
 
   if (loading) {
     return (
-      <Flex justify="center" align="center" mih={{ base: "calc(100vh - 60px)", sm: "calc(100vh - 80px)" }}>
+      <Flex
+        justify="center"
+        align="center"
+        mih={{ base: "calc(100vh - 60px)", sm: "calc(100vh - 80px)" }}
+      >
         <Loader size="md" />
       </Flex>
     );
@@ -111,7 +118,9 @@ function PostPage() {
   return (
     <Container className="align-center mx-[20px] mb-[120px] mt-[40px] min-w-[335px] max-w-screen-lg flex-col px-0 md:mx-[60px] md:mt-[60px] lg:mx-auto">
       <div className="mb-10 flex items-center justify-between">
-        <Title className="text-left text-[24px] font-semibold leading-[32px] text-gray-800 md:text-32">베스트 게시글</Title>
+        <Title className="text-left text-[24px] font-semibold leading-[32px] text-gray-800 md:text-32">
+          베스트 게시글
+        </Title>
         <Button
           className="h-[45px] w-[130px] rounded-md bg-green-200 text-14 text-white hover:bg-green-300 md:w-[145px]"
           onClick={() => {
@@ -121,13 +130,21 @@ function PostPage() {
           게시물 등록하기
         </Button>
       </div>
-      {bestLoading ? <div>Loading best posts...</div> : <BestPosts bestPosts={bestPosts} />}
+      {bestLoading ? (
+        <div>Loading best posts...</div>
+      ) : (
+        <BestPosts bestPosts={bestPosts} />
+      )}
       <div className="mb-8 gap-2.5 md:flex">
         <SearchBar onSearch={handleSearch} />
         <SortDropdown sortBy={sortBy} onSort={handleSort} />
       </div>
       <PostListTable posts={posts} />
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={paginate} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={paginate}
+      />
     </Container>
   );
 }

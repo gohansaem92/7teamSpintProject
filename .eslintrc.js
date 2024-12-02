@@ -20,7 +20,14 @@ module.exports = {
     "next/core-web-vitals",
     "prettier",
   ],
-  plugins: ["react", "react-hooks", "@typescript-eslint", "jsx-a11y", "import", "prettier"],
+  plugins: [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "jsx-a11y",
+    "import",
+    "prettier",
+  ],
   rules: {
     "prettier/prettier": [
       "error",

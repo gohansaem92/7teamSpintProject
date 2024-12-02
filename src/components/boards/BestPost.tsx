@@ -31,7 +31,13 @@ function BestPosts({ bestPosts }: Props) {
             <Card.Section className="relative h-full">
               <div className="flex h-full items-center justify-center">
                 <div className="relative h-[131px] w-[250px] md:h-full md:w-full lg:h-[131px] lg:w-[250px]">
-                  <Image src={post.image ? post.image.src : indexImage} alt={post.image ? post.image.alt : "기본 이미지"} layout="fill" objectFit="cover" className="rounded-t-md" />
+                  <Image
+                    src={post.image ? post.image.src : indexImage}
+                    alt={post.image ? post.image.alt : "기본 이미지"}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-t-md"
+                  />
                 </div>
               </div>
             </Card.Section>
@@ -49,7 +55,8 @@ function BestPosts({ bestPosts }: Props) {
                 </Text>
               </Group>
               <Text fw={500} className="flex gap-1 text-12 text-gray-400">
-                <Image src={heart} alt="좋아요" width={18} height={18} /> {post.likeCount}개
+                <Image src={heart} alt="좋아요" width={18} height={18} />{" "}
+                {post.likeCount}개
               </Text>
             </Group>
           </Card>
@@ -58,18 +65,43 @@ function BestPosts({ bestPosts }: Props) {
 
       {/* Mobile view */}
 
-      <Carousel slideSize={250} height={200} align="start" slideGap="md" withControls={false} className="md:hidden lg:hidden">
+      <Carousel
+        slideSize={250}
+        height={200}
+        align="start"
+        slideGap="md"
+        withControls={false}
+        className="md:hidden lg:hidden"
+      >
         {bestPosts.map((post) => (
           <Carousel.Slide key={post.id}>
-            <Card shadow="sm" radius="md" className="h-[200px] w-[250px]" component="a" href="/boards" target="_self" style={{ boxShadow: " 0px 4px 20px 0px #00000014" }}>
+            <Card
+              shadow="sm"
+              radius="md"
+              className="h-[200px] w-[250px]"
+              component="a"
+              href="/boards"
+              target="_self"
+              style={{ boxShadow: " 0px 4px 20px 0px #00000014" }}
+            >
               <Card.Section className="relative h-[131px]">
                 <div className="flex h-full items-center justify-center">
                   <div className="relative h-[131px] w-[250px] sm:h-[131px] sm:w-[302px] md:h-[131px] md:w-[250px]">
-                    <Image src={post.image ? post.image.src : indexImage} alt={post.image ? post.image.alt : "기본 이미지"} layout="fill" objectFit="cover" className="rounded-t-md" />
+                    <Image
+                      src={post.image ? post.image.src : indexImage}
+                      alt={post.image ? post.image.alt : "기본 이미지"}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-t-md"
+                    />
                   </div>
                 </div>
               </Card.Section>
-              <Text fw={600} mt={11} className="text-16 leading-6 text-gray-800">
+              <Text
+                fw={600}
+                mt={11}
+                className="text-16 leading-6 text-gray-800"
+              >
                 {" "}
                 {post.title}
               </Text>
@@ -83,7 +115,8 @@ function BestPosts({ bestPosts }: Props) {
                   </Text>
                 </Group>
                 <Text fw={500} className="flex gap-1 text-12 text-gray-400">
-                  <Image src={heart} alt="좋아요" width={18} height={18} /> {post.likeCount}개
+                  <Image src={heart} alt="좋아요" width={18} height={18} />{" "}
+                  {post.likeCount}개
                 </Text>
               </Group>
             </Card>

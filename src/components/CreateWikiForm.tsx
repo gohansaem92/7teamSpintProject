@@ -32,16 +32,28 @@ export default function CreateWikiForm() {
         securityQuestion: data.securityQuestion,
         securityAnswer: data.securityAnswer,
       });
-      showNotification("위키 생성 완료", "나만의 위키가 생성 되었습니다!", "green.2");
+      showNotification(
+        "위키 생성 완료",
+        "나만의 위키가 생성 되었습니다!",
+        "green.2",
+      );
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.status === 400) {
-          showNotification("위키 생성 실패", `${error.response?.data.message}`, "red.1");
+          showNotification(
+            "위키 생성 실패",
+            `${error.response?.data.message}`,
+            "red.1",
+          );
         } else {
           showNotification("위키 생성 실패", "알 수 없는 오류", "red.1");
         }
       } else {
-        showNotification("위키 생성 실패", "예기치 않은 오류가 발생했습니다. 다시 시도해주세요.🤥", "red.1");
+        showNotification(
+          "위키 생성 실패",
+          "예기치 않은 오류가 발생했습니다. 다시 시도해주세요.🤥",
+          "red.1",
+        );
       }
     }
   };
@@ -68,7 +80,10 @@ export default function CreateWikiForm() {
 
   return (
     <div className="flex flex-col items-center">
-      <form onSubmit={handleSubmit(onSubmit)} className="my-0 flex w-[335px] flex-col gap-[8px] border-t-2 border-gray-200 py-[32px] md:w-[400px]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="my-0 flex w-[335px] flex-col gap-[8px] border-t-2 border-gray-200 py-[32px] md:w-[400px]"
+      >
         <TextInput
           id="securityQuestion"
           label="위키 생성하기"
@@ -111,7 +126,14 @@ export default function CreateWikiForm() {
           variant="filled"
         />
         <Flex justify="flex-end">
-          <Button type="submit" disabled={!isValid} w="89" color="green.1" radius="md" c="white">
+          <Button
+            type="submit"
+            disabled={!isValid}
+            w="89"
+            color="green.1"
+            radius="md"
+            c="white"
+          >
             생성하기
           </Button>
         </Flex>

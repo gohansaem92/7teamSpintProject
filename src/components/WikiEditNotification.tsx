@@ -1,4 +1,11 @@
-import { Box, Text, Dialog, Flex, CloseButton, ScrollArea } from "@mantine/core";
+import {
+  Box,
+  Text,
+  Dialog,
+  Flex,
+  CloseButton,
+  ScrollArea,
+} from "@mantine/core";
 import { NotiData } from "@/src/types/NotificationResponse";
 import { isAxiosError } from "axios";
 import axiosInstance from "@/src/apis/axios";
@@ -9,7 +16,10 @@ type EditNotificationProps = {
   notiData: NotiData;
 };
 
-export default function EditNotification({ opened, notiData }: EditNotificationProps) {
+export default function EditNotification({
+  opened,
+  notiData,
+}: EditNotificationProps) {
   const deleteNotiData = async (id: number) => {
     try {
       const res = await axiosInstance.delete(`notifications/${id}`);
@@ -42,15 +52,26 @@ export default function EditNotification({ opened, notiData }: EditNotificationP
   };
 
   return (
-    <Dialog opened={opened} position={{ top: "8%", right: "8%" }} style={{ backgroundColor: "#CBC9CF", padding: 20 }}>
+    <Dialog
+      opened={opened}
+      position={{ top: "8%", right: "8%" }}
+      style={{ backgroundColor: "#CBC9CF", padding: 20 }}
+    >
       <Flex justify="space-between" align="center">
         <Text>알림 {notiData.totalCount}개</Text>
       </Flex>
-      <ScrollArea h={notiData.totalCount === 1 ? 100 : 205} offsetScrollbars scrollbars="y">
+      <ScrollArea
+        h={notiData.totalCount === 1 ? 100 : 205}
+        offsetScrollbars
+        scrollbars="y"
+      >
         <Flex direction="column" align="center" gap="8">
           {notiData.totalCount > 0 ? (
             notiData.list.map((list) => (
-              <Box key={list.id} className="relative flex h-[98px] w-full flex-col items-start justify-around rounded-[5px] bg-white px-[12px] py-[16px]">
+              <Box
+                key={list.id}
+                className="relative flex h-[98px] w-full flex-col items-start justify-around rounded-[5px] bg-white px-[12px] py-[16px]"
+              >
                 <CloseButton
                   size="sm"
                   style={{ position: "absolute", top: 5, right: 5 }}

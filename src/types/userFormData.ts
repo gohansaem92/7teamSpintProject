@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { loginSchema, signUpSchema, accountSettingSchema, wikiCreateSchema } from "@/src/schema/userFormSchema";
+import {
+  loginSchema,
+  signUpSchema,
+  accountSettingSchema,
+  wikiCreateSchema,
+} from "@/src/schema/userFormSchema";
 
 export type SignUpFormData = z.infer<typeof signUpSchema>;
 export type LoginFormData = z.infer<typeof loginSchema>;

@@ -33,7 +33,11 @@ function SortDropdown({ onSort, sortBy }: SortDropdownProps) {
         className="flex h-[45px] w-full items-center justify-between rounded-md border border-none bg-gray-100 px-5 py-[14px] text-center text-14 font-normal leading-[24px] text-gray-500 md:w-[140px]"
       >
         <Text>{sortBy === "recent" ? "최신순" : "좋아요순"}</Text>
-        {!isOpen ? <Image src={bottomArrow} alt="검색" width={22} height={22} /> : <Image src={upArrow} alt="검색" width={22} height={22} />}
+        {!isOpen ? (
+          <Image src={bottomArrow} alt="검색" width={22} height={22} />
+        ) : (
+          <Image src={upArrow} alt="검색" width={22} height={22} />
+        )}
       </div>
 
       {isOpen && (

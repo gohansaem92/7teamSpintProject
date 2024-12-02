@@ -31,7 +31,9 @@ function SearchBar({ onSearch }: SearchBarProps) {
       <form className="flex flex-row items-center gap-[15px]">
         <TextInput
           leftSectionPointerEvents="none"
-          leftSection={<Image src={searchIcon} alt="검색" width={22} height={22} />}
+          leftSection={
+            <Image src={searchIcon} alt="검색" width={22} height={22} />
+          }
           variant="filled"
           placeholder="제목을 검색해주세요"
           value={searchValue}
@@ -47,7 +49,10 @@ function SearchBar({ onSearch }: SearchBarProps) {
           })}
         />
 
-        <Button className="h-[45px] w-[80px] rounded-md bg-green-200 text-[14px] text-white hover:bg-green-300" onClick={handleSearchClick}>
+        <Button
+          className="h-[45px] w-[80px] rounded-md bg-green-200 text-[14px] text-white hover:bg-green-300"
+          onClick={handleSearchClick}
+        >
           검색
         </Button>
       </form>
