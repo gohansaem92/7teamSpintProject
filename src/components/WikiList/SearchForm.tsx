@@ -1,6 +1,6 @@
 import searchIcon from "@/public/ic_search.svg";
 import Image from "next/image";
-import { SearchPros } from "../types/wikiListTypes";
+import { SearchPros } from "../../types/wikiListTypes";
 
 export default function SearchForm({
   value,

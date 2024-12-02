@@ -10,7 +10,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Box, Button, Divider, Flex, Input, useMatches } from "@mantine/core";
 import { ChangeEvent, FormEvent, useState } from "react";
-import MenuBar from "./Menubar";
+import MenuBar from "@/src/components/AddBoard/Menubar";
 
 const INITIAL_VALUES = {
   title: "",

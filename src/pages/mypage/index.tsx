@@ -1,5 +1,5 @@
-import ChangePasswordForm from "@/src/components/ChangePasswordForm";
-import CreateWikiForm from "@/src/components/CreateWikiForm";
+import ChangePasswordForm from "@/src/components/MyPage/ChangePasswordForm";
+import CreateWikiForm from "@/src/components/MyPage/CreateWikiForm";
 
 export default function MyPage() {
   return (

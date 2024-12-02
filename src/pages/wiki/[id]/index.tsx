@@ -1,10 +1,10 @@
 import ic_copy_link from "@/public/ic_copy_link.svg";
 import instance from "@/src/apis/axios";
 import checkWikiStatus from "@/src/apis/checkWikiStatus";
-import EditWikiAuthModal from "@/src/components/EditWikiAuthModal";
-import ProfileCard from "@/src/components/ProfileCard";
+import EditWikiAuthModal from "@/src/components/Wiki/EditWikiAuthModal";
+import ProfileCard from "@/src/components/Wiki/ProfileCard";
 import ProfileCardEditor from "@/src/components/ProfileCardEditor";
-import WikiEditor from "@/src/components/WikiEditor";
+import WikiEditor from "@/src/components/Wiki/WikiEditor";
 import { ProfileCardData, ProfileResponse } from "@/src/types/ProfileResponse";
 import { Button, CopyButton } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";

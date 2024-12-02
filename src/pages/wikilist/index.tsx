@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Article } from "@/src/types/wikiListTypes";
 import Pagination from "@/src/components/Pagination";
 import NoSearchImage from "@/public/img_no_search.webp";
-import SearchForm from "@/src/components/SearchForm";
+import SearchForm from "@/src/components/WikiList/SearchForm";
 import useDebounce from "@/src/hooks/useDebounce";
 
 export default function WikiList() {

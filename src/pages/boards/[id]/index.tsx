@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import instance from "@/src/apis/axios";
-import Board, { ArticleType } from "@/src/components/Board";
+import Board, { ArticleType } from "@/src/components/DetailBoard/Board";
 import { Button, Flex, Loader } from "@mantine/core";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import WriteReply from "@/src/components/WriteReply";
-import Reply, { ReplyType } from "@/src/components/Reply";
+import Reply, { ReplyType } from "@/src/components/DetailBoard/Reply";
 
 export default function ArticlePage() {
   const router = useRouter();

@@ -1,9 +1,9 @@
-import WriteBoard from "@/src/components/WriteBoard";
 import { Button, Flex, Loader } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import instance from "@/src/apis/axios";
+import WriteBoard from "@/src/components/AddBoard/WriteBoard";
 
 export default function AddBoard() {
   const router = useRouter();

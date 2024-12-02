@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Container, Title, Button, Flex, Loader } from "@mantine/core";
 import Pagination from "@/src/components/Pagination";
-import PostListTable from "@/src/components/boards/PostListTable";
-import BestPosts from "@/src/components/boards/BestPost";
-import SearchBar from "@/src/components/boards/SearchBar";
-import SortDropdown from "@/src/components/boards/SortDropdown";
+import PostListTable from "@/src/components/Boards/PostListTable";
+import BestPosts from "@/src/components/Boards/BestPost";
+import SearchBar from "@/src/components/Boards/SearchBar";
+import SortDropdown from "@/src/components/Boards/SortDropdown";
 import indexImage from "@/public/assets/img_card_section.png";
 import instance from "@/src/apis/axios";
 import { Post } from "@/src/types/boardTypes";

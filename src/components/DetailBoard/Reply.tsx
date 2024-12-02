@@ -5,7 +5,7 @@ import { useState } from "react";
 import ImgUser from "@/public/assets/user.svg";
 import IcoPencil from "@/public/assets/ic_pencil.svg";
 import IcoBin from "@/public/assets/ic_bin.svg";
-import instance from "../apis/axios";
+import instance from "../../apis/axios";
 import WriteReply from "./WriteReply";
 
 export interface ReplyType {
