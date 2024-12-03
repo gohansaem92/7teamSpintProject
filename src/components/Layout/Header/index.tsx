@@ -1,20 +1,15 @@
 import IcoBurger from "@/public/assets/ic_burger.svg";
 import ImgLogo from "@/public/assets/img_logo.webp";
-import { Box, Group, Menu, ThemeIcon } from "@mantine/core";
+import { Group, Menu } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
 import IcoProfile from "@/public/assets/ic_profile.svg";
-import IcoAlarm from "@/public/assets/ic_alarm.svg";
 import { notifications } from "@mantine/notifications";
-import { useDisclosure } from "@mantine/hooks";
-import WikiEditNotification from "@/src/components/WikiEditNotification";
 import { useAuth } from "@/src/contexts/AuthContext";
-import { useNotifications } from "@/src/contexts/NotificationContext";
+import EditNotification from "@/src/components/Layout/Header/WikiEditNotification";
 
 export default function Header() {
   const { loggedIn, setLoggedIn } = useAuth();
-  const { notiData } = useNotifications();
-  const [opened, { open: openNoti, close: closeNoti }] = useDisclosure(false);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -28,18 +23,6 @@ export default function Header() {
       withCloseButton: true,
     });
   };
-
-  const activeNoti = () => {
-    if (opened) {
-      closeNoti();
-    } else {
-      openNoti();
-      // fetchNotifications(); // Refresh notifications on open
-    }
-  };
-
-  // eslint-disable-next-line no-console
-  console.log(loggedIn);
 
   return (
     <div className="h-[60px] md:h-[80px]">
@@ -66,42 +49,15 @@ export default function Header() {
           </Group>
 
           {loggedIn ? (
-            <Menu
-              width={120}
-              position="bottom"
-              radius="md"
-              shadow="md"
-              withinPortal
-            >
-              <Group>
-                <Group>
-                  <Box style={{ position: "relative" }} onClick={activeNoti}>
-                    <Image
-                      src={IcoAlarm}
-                      width={32}
-                      height={32}
-                      alt="알림"
-                      className="cursor-pointer"
-                    />
-                    <Box>
-                      {notiData.totalCount > 0 ? (
-                        <ThemeIcon
-                          radius="xl"
-                          size="xs"
-                          color="red"
-                          style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 15,
-                            fontSize: 12,
-                          }}
-                        >
-                          {notiData.totalCount}
-                        </ThemeIcon>
-                      ) : null}
-                    </Box>
-                  </Box>
-                </Group>
+            <Group>
+              <EditNotification />
+              <Menu
+                width={120}
+                position="bottom"
+                radius="md"
+                shadow="md"
+                withinPortal
+              >
                 <Menu.Target>
                   <Group>
                     <Group hiddenFrom="sm">
@@ -124,43 +80,43 @@ export default function Header() {
                     </Group>
                   </Group>
                 </Menu.Target>
-              </Group>
 
-              <Menu.Dropdown>
-                <Menu.Item hiddenFrom="sm">
-                  <Link
-                    href="/wikilist"
-                    className="flex justify-center p-2 text-14 text-gray-800"
-                  >
-                    위키 목록
-                  </Link>
-                </Menu.Item>
-                <Menu.Item hiddenFrom="sm">
-                  <Link
-                    href="/boards"
-                    className="flex justify-center p-2 text-14 text-gray-800"
-                  >
-                    자유게시판
-                  </Link>
-                </Menu.Item>
-                <Menu.Item>
-                  <Link
-                    href="/mypage"
-                    className="flex justify-center p-2 text-14 text-gray-800"
-                  >
-                    마이페이지
-                  </Link>
-                </Menu.Item>
-                <Menu.Item onClick={handleLogout}>
-                  <Link
-                    href="/"
-                    className="flex justify-center p-2 text-14 text-gray-800"
-                  >
-                    로그아웃
-                  </Link>
-                </Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
+                <Menu.Dropdown>
+                  <Menu.Item hiddenFrom="sm">
+                    <Link
+                      href="/wikilist"
+                      className="flex justify-center p-2 text-14 text-gray-800"
+                    >
+                      위키 목록
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item hiddenFrom="sm">
+                    <Link
+                      href="/boards"
+                      className="flex justify-center p-2 text-14 text-gray-800"
+                    >
+                      자유게시판
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Link
+                      href="/mypage"
+                      className="flex justify-center p-2 text-14 text-gray-800"
+                    >
+                      마이페이지
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item onClick={handleLogout}>
+                    <Link
+                      href="/"
+                      className="flex justify-center p-2 text-14 text-gray-800"
+                    >
+                      로그아웃
+                    </Link>
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
+            </Group>
           ) : (
             <>
               <Group visibleFrom="sm">
@@ -219,7 +175,6 @@ export default function Header() {
           )}
         </Group>
       </header>
-      <WikiEditNotification opened={opened} notiData={notiData} />
     </div>
   );
 }
