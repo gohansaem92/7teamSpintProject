@@ -13,7 +13,7 @@ import { useNotifications } from "@/src/contexts/NotificationContext";
 import Image from "next/image";
 import IcoAlarm from "@/public/assets/ic_alarm.svg";
 
-export default function EditNotification() {
+export default function NotificationButton() {
   const { notiData } = useNotifications();
 
   const deleteNotiData = async (id: number) => {

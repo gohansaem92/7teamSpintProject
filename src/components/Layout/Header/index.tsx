@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { notifications } from "@mantine/notifications";
 import { useAuth } from "@/src/contexts/AuthContext";
-import EditNotification from "@/src/components/Layout/Header/WikiEditNotification";
+import EditNotification from "@/src/components/Layout/Header/NotificationButton";
 import ProfileButton from "@/src/components/Layout/Header/ProfileButton";
 
 export default function Header() {
