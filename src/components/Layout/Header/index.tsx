@@ -3,6 +3,7 @@ import ImgLogo from "@/public/assets/img_logo.webp";
 import { Group, Menu } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { notifications } from "@mantine/notifications";
 import { useAuth } from "@/src/contexts/AuthContext";
@@ -10,6 +11,7 @@ import EditNotification from "@/src/components/Layout/Header/NotificationButton"
 import ProfileButton from "@/src/components/Layout/Header/ProfileButton";
 
 export default function Header() {
+  const queryClient = useQueryClient();
   const { loggedIn, setLoggedIn } = useAuth();
 
   const handleLogout = () => {
@@ -23,6 +25,7 @@ export default function Header() {
       autoClose: 2000,
       withCloseButton: true,
     });
+    queryClient.removeQueries();
   };
 
   return (

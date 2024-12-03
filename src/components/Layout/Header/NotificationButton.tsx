@@ -9,9 +9,9 @@ import {
 } from "@mantine/core";
 import axiosInstance from "@/src/apis/axios";
 import formatTimeAgo from "@/src/utils/formatTimeAgo";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import IcoAlarm from "@/public/assets/ic_alarm.svg";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 type NotiDataType = {
   totalCount: number;
@@ -23,37 +23,33 @@ type NotiDataType = {
 };
 
 export default function NotificationButton() {
-  // notiData 초기값 설정
-  const [notiData, setNotiData] = useState<NotiDataType>({
-    totalCount: 0,
-    list: [],
-  });
+  const queryClient = useQueryClient();
 
-  // api를 통해 notiData 수신
-  useEffect(() => {
-    const getNotiData = async () => {
-      try {
+  const { data: notiData = { totalCount: 0, list: [] } } =
+    useQuery<NotiDataType>({
+      queryKey: ["notification"],
+      queryFn: async () => {
         const res = await axiosInstance.get("notifications?pageSize=10");
-        if (res.status === 200) {
-          setNotiData(res.data);
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-      }
-    };
-    getNotiData();
-  }, [notiData.totalCount]);
+        return res.data;
+      },
+    });
 
-  const deleteNotiData = async (id: number) => {
-    const res = await axiosInstance.delete(`notifications/${id}`);
-    if (res.status === 200) {
-      setNotiData((prevData) => ({
-        totalCount: prevData.totalCount - 1,
-        list: prevData.list.filter((item) => item.id !== id),
-      }));
-    }
-  };
+  const deleteNotiData = useMutation({
+    mutationFn: async (id: number) => {
+      await axiosInstance.delete(`notifications/${id}`);
+    },
+    onSuccess: (_, id) => {
+      queryClient.setQueryData(["notification"], (prevData: NotiDataType) => {
+        if (!prevData) return prevData;
+
+        return {
+          ...prevData,
+          totalCount: prevData.totalCount - 1,
+          list: prevData.list.filter((item) => item.id !== id),
+        };
+      });
+    },
+  });
 
   return (
     <Popover width={200} position="bottom" withArrow shadow="md">
@@ -97,7 +93,7 @@ export default function NotificationButton() {
                     size="sm"
                     style={{ position: "absolute", top: 5, right: 5 }}
                     onClick={() => {
-                      deleteNotiData(list.id);
+                      deleteNotiData.mutate(list.id);
                     }}
                   />
                   <Text
