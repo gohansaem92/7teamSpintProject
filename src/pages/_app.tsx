@@ -11,7 +11,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import Layout from "../components/Layout/layout";
 import { AuthProvider } from "../contexts/AuthContext";
-import { NotificationProvider } from "../contexts/NotificationContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,11 +32,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <ReactQueryDevtools initialIsOpen={false} />
         )}
         <AuthProvider>
-          <NotificationProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </NotificationProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </AuthProvider>
       </QueryClientProvider>
     </MantineProvider>
