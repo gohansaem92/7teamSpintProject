@@ -10,11 +10,13 @@ import axiosInstance from "@/src/apis/axios";
 import { NotiData } from "@/src/types/NotificationResponse";
 import { useAuth } from "@/src/contexts/AuthContext";
 
+// 타입 설정
 type NotificationContextType = {
   notiData: NotiData;
   fetchNotifications: () => Promise<void>;
 };
 
+// 초기값 설정
 const NotificationContext = createContext<NotificationContextType | undefined>(
   undefined,
 );
@@ -32,7 +34,7 @@ export function NotificationProvider({
 
   const fetchNotifications = async () => {
     try {
-      const res = await axiosInstance.get("notifications?pageSize=3");
+      const res = await axiosInstance.get("notifications?pageSize=10");
       if (res.status === 200) {
         setNotiData(res.data);
       }

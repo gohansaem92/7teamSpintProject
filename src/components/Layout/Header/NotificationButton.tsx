@@ -10,17 +10,21 @@ import {
 import axiosInstance from "@/src/apis/axios";
 import formatTimeAgo from "@/src/utils/formatTimeAgo";
 import { useNotifications } from "@/src/contexts/NotificationContext";
+import { useState } from "react";
 import Image from "next/image";
 import IcoAlarm from "@/public/assets/ic_alarm.svg";
 
 export default function NotificationButton() {
   const { notiData } = useNotifications();
+  const [localNotiData, setLocalNotiData] = useState(notiData);
 
   const deleteNotiData = async (id: number) => {
     const res = await axiosInstance.delete(`notifications/${id}`);
     if (res.status === 200) {
-      // eslint-disable-next-line no-console
-      console.log("noti 삭제 성공");
+      setLocalNotiData((prevData) => ({
+        totalCount: prevData.totalCount - 1,
+        list: prevData.list.filter((item) => item.id !== id),
+      }));
     }
   };
 
@@ -30,14 +34,14 @@ export default function NotificationButton() {
         <Box style={{ position: "relative" }} className="cursor-pointer">
           <Image src={IcoAlarm} width={32} height={32} alt="알림" />
           <Box>
-            {notiData.totalCount > 0 ? (
+            {localNotiData.totalCount > 0 ? (
               <ThemeIcon
                 radius="xl"
                 size="xs"
                 color="red"
                 style={{ position: "absolute", top: 0, left: 15, fontSize: 12 }}
               >
-                {notiData.totalCount}
+                {localNotiData.totalCount}
               </ThemeIcon>
             ) : null}
           </Box>
@@ -47,17 +51,17 @@ export default function NotificationButton() {
         style={{ backgroundColor: "#CBC9CF", width: 250, height: 300 }}
       >
         <Flex justify="space-between" align="center">
-          <Text>알림 {notiData.totalCount}개</Text>
+          <Text>알림 {localNotiData.totalCount}개</Text>
         </Flex>
         <ScrollArea
-          h={notiData.totalCount === 1 ? 100 : 205}
+          h={localNotiData.totalCount === 1 ? 100 : 205}
           offsetScrollbars
           scrollbars="y"
         >
           <Flex direction="column" align="center" gap="8">
-            {notiData.totalCount > 0 ? (
+            {localNotiData.totalCount > 0 ? (
               // 여기 부분을 useState로 만들어서 정리해보자
-              notiData.list.map((list) => (
+              localNotiData.list.map((list) => (
                 <Box
                   key={list.id}
                   className="relative flex h-[98px] w-full flex-col items-start justify-around rounded-[5px] bg-white px-[12px] py-[16px]"
