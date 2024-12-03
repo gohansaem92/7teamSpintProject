@@ -3,7 +3,7 @@ import instance from "@/src/apis/axios";
 import checkWikiStatus from "@/src/apis/checkWikiStatus";
 import EditWikiAuthModal from "@/src/components/Wiki/EditWikiAuthModal";
 import ProfileCard from "@/src/components/Wiki/ProfileCard";
-import ProfileCardEditor from "@/src/components/ProfileCardEditor";
+import ProfileCardEditor from "@/src/components/Wiki/ProfileCardEditor";
 import WikiEditor from "@/src/components/Wiki/WikiEditor";
 import { ProfileCardData, ProfileResponse } from "@/src/types/ProfileResponse";
 import { Button, CopyButton } from "@mantine/core";
@@ -54,6 +54,7 @@ function RenderedHTML({ htmlContent }: RenderedHTMLProps) {
   }
   return (
     <div className="rendered-html prose">
+      {/* eslint-disable-next-line react/no-danger */}
       <div dangerouslySetInnerHTML={createMarkup()} />
     </div>
   );
@@ -82,12 +83,9 @@ export default function Wiki() {
   useEffect(() => {
     const getWikiDataByCode = async () => {
       try {
-        const response = await instance.get(`/profiles`, {
-          params: { name: id },
-        });
-        const firstItem = response.data.list[0].code;
-        const { data } = await instance.get(`/profiles/${firstItem}`);
-        setWikiData(data);
+        const response = await instance.get(`/profiles/${id}`);
+        const firstItem = response.data;
+        setWikiData(firstItem);
 
         const {
           city,
@@ -98,7 +96,7 @@ export default function Wiki() {
           nickname,
           bloodType,
           nationality,
-        } = data;
+        } = firstItem;
         const profileCardData: ProfileCardData = {
           city,
           mbti,
@@ -117,18 +115,18 @@ export default function Wiki() {
         // note formData 정상 post 요청하려면 전체 항목이 모두 필요함..
         const initialProfileData = {
           securityAnswer: answer,
-          securityQuestion: data.securityQuestion,
-          nationality: data.nationality,
-          family: data.family,
-          bloodType: data.bloodType,
-          nickname: data.nickname,
-          birthday: data.birthday,
-          sns: data.sns,
-          job: data.job,
-          mbti: data.mbti,
-          city: data.city,
-          image: data.image,
-          content: data.content,
+          securityQuestion: firstItem.securityQuestion,
+          nationality: firstItem.nationality,
+          family: firstItem.family,
+          bloodType: firstItem.bloodType,
+          nickname: firstItem.nickname,
+          birthday: firstItem.birthday,
+          sns: firstItem.sns,
+          job: firstItem.job,
+          mbti: firstItem.mbti,
+          city: firstItem.city,
+          image: firstItem.image,
+          content: firstItem.content,
         };
         setFormData(initialProfileData);
       } catch (e) {
@@ -137,7 +135,7 @@ export default function Wiki() {
       }
     };
     getWikiDataByCode();
-  }, [id]);
+  }, [answer, id]);
 
   const handleClickEdit = async () => {
     if (typeof id === "string") {
@@ -150,6 +148,7 @@ export default function Wiki() {
         });
         return;
       }
+
       const wikiStatus = await checkWikiStatus(id);
       if (wikiStatus) {
         openModal();

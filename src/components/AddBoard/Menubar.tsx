@@ -24,7 +24,7 @@ import iconImage from "@/public/assets/ic_image.svg";
 import iconLeft from "@/public/assets/ic_Alignment_left.svg";
 import iconLink from "@/public/assets/ic_link.svg";
 import { useDisclosure } from "@mantine/hooks";
-import FileInput from "./FileInput";
+import FileInput from "@/src/components/AddBoard/FileInput";
 
 export default function MenuBar({
   editor,

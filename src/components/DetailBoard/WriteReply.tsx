@@ -1,7 +1,7 @@
 import { Button, Flex, Textarea } from "@mantine/core";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
-import instance from "../apis/axios";
+import instance from "@/src/apis/axios";
 
 interface WriteReplyProps {
   type: string;

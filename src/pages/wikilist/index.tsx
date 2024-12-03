@@ -1,4 +1,4 @@
-import UserCard from "@/src/components/UserCard";
+import UserCard from "@/src/components/WikiList/UserCard";
 import instance from "@/src/apis/axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";

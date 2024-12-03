@@ -4,14 +4,14 @@ import { CopyButton, ActionIcon, Tooltip } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import icCopy from "@/public/ic_copy.svg";
 import Link from "next/link";
-import { UserCardProps } from "../types/wikiListTypes";
+import { UserCardProps } from "@/src/types/wikiListTypes";
 
 export default function UserCard({ articles }: UserCardProps) {
   return (
     <div>
       {articles.map((article) => (
-        <div className="relative" key={article.name}>
-          <Link href={`/wiki/${article.name}`}>
+        <div className="relative" key={article.id}>
+          <Link href={`/wiki/${article.code}`}>
             <article className="m-auto my-[24px] h-[150px] w-[340px] flex-col justify-between rounded-[25px] bg-[#fff] py-[24px] shadow-lg sm:flex md:h-[140px] md:w-[700px] md:flex-row lg:h-[140px] lg:w-[860px] lg:flex-row">
               <div className="flex">
                 <Image
