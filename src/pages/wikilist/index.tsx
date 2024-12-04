@@ -1,49 +1,33 @@
 import UserCard from "@/src/components/WikiList/UserCard";
 import instance from "@/src/apis/axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Article } from "@/src/types/wikiListTypes";
 import Pagination from "@/src/components/Pagination";
 import NoSearchImage from "@/public/img_no_search.webp";
 import SearchForm from "@/src/components/WikiList/SearchForm";
 import useDebounce from "@/src/hooks/useDebounce";
+import { useQuery } from "@tanstack/react-query";
+
+async function fetchArticles(name: string, page: number) {
+  const response = await instance.get(`/profiles`, {
+    params: { name, page },
+  });
+  return response.data;
+}
 
 export default function WikiList() {
-  const [articles, setArticles] = useState<Article[]>([]);
   const [value, setValue] = useState<string>("");
   const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(0);
   const debouncedValue = useDebounce(value, 500);
 
-  useEffect(() => {
-    async function fetchArticles() {
-      try {
-        const response = await instance.get(`/profiles`, {
-          params: { name: debouncedValue, page },
-        });
-        if (Array.isArray(response.data.list)) {
-          setArticles(response.data.list);
-          setTotalPages(Math.ceil(response.data.totalCount / 3));
-        } else {
-          // NOTE: 배열이 아닐시 에러 출력
-          // eslint-disable-next-line no-console
-          console.error("API did not return an array");
-        }
-      } catch (error) {
-        // NOTE: API 응답 실패시 에러 출력
-        // eslint-disable-next-line no-console
-        console.error("Error fetching articles:", error);
-      }
-    }
+  const { data } = useQuery({
+    queryKey: ["articles", debouncedValue, page],
+    queryFn: () => fetchArticles(debouncedValue, page),
+  });
 
-    fetchArticles();
-  }, [page, debouncedValue]);
-
-  const searchResults = debouncedValue
-    ? articles.filter((article) =>
-        article.name.toLowerCase().includes(debouncedValue.toLowerCase()),
-      )
-    : articles;
+  const articles: Article[] = data?.list || [];
+  const totalPages = Math.ceil((data?.totalCount || 0) / 3);
 
   return (
     <div className="m-auto mt-[40px] w-[350px] md:mt-[60px] md:w-[700px] lg:mt-[80px] lg:w-[860px]">
@@ -56,12 +40,10 @@ export default function WikiList() {
             setPage={setPage}
           />
           <section className="m-auto my-4 w-[340px] px-4 text-[16px] font-[400] text-gray-400 md:w-[700px] lg:w-[860px]">
-            {debouncedValue && searchResults.length > 0 ? (
+            {debouncedValue && articles.length > 0 ? (
               <p>
                 &quot;{debouncedValue}&quot;님을 총
-                <span className="text-green-200">
-                  &nbsp;{searchResults.length}
-                </span>
+                <span className="text-green-200">&nbsp;{articles.length}</span>
                 명 찾았습니다.
               </p>
             ) : (
@@ -70,8 +52,8 @@ export default function WikiList() {
           </section>
         </div>
         <section className="my-20 h-[470px]">
-          {searchResults.length > 0 ? (
-            searchResults.map((article) => (
+          {articles.length > 0 ? (
+            articles.map((article) => (
               <UserCard key={article.id} articles={[article]} />
             ))
           ) : (
@@ -96,7 +78,7 @@ export default function WikiList() {
           )}
         </section>
         <footer>
-          {searchResults.length > 0 ? (
+          {articles.length > 0 ? (
             <Pagination
               totalPages={totalPages}
               currentPage={page}
