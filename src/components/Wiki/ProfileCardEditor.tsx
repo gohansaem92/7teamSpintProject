@@ -5,7 +5,7 @@ import { TextInput } from "@mantine/core";
 import Image from "next/image";
 import { useState } from "react";
 import { notifications } from "@mantine/notifications";
-import { ProfileCardData } from "../types/ProfileResponse";
+import { ProfileCardData } from "@/src/types/ProfileResponse";
 
 type ProfileCardProps = {
   profileData: ProfileCardData;
